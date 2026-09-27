@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Основы ЭПД</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sidebar-bg:#2d2a26;
+  --sidebar-text:#e8e4df;
+  --sidebar-active:#d97706;
+  --sidebar-hover:#3d3833;
+  --accent:#d97706;
+  --accent-light:#fef3c7;
+  --bg:#f5f3f0;
+  --card:#ffffff;
+  --border:#e0dccd;
+  --text:#1a1a1a;
+  --text-muted:#6b6258;
+  --warn-bg:#fef3c7;
+  --warn-border:#f59e0b;
+  --info-bg:#d1fae5;
+  --info-border:#10b981;
+  --error-bg:#fee2e2;
+  --error-border:#ef4444;
+  --success-bg:#d1fae5;
+  --success-border:#10b981;
+}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;line-height:1.6}
+.sidebar{width:280px;background:var(--sidebar-bg);color:var(--sidebar-text);position:fixed;height:100vh;overflow-y:auto;z-index:1000;transition:transform .3s}
+.sidebar.closed{transform:translateX(-100%)}
+.sidebar-toggle{position:fixed;top:16px;left:280px;z-index:1001;background:var(--accent);color:#fff;border:none;padding:10px 14px;cursor:pointer;border-radius:0 8px 8px 0;font-size:18px;transition:left .3s}
+.sidebar-toggle.shifted{left:0}
+.sidebar-header{padding:24px 20px 16px;font-size:18px;font-weight:bold;display:flex;align-items:center;gap:10px;border-bottom:1px solid #3d3833}
+.sidebar-nav{padding:12px 0}
+.sidebar-section-label{padding:8px 20px;font-size:12px;text-transform:uppercase;color:#8a8073;letter-spacing:1px;margin-top:8px}
+.sidebar-nav a{display:block;padding:10px 20px;color:var(--sidebar-text);text-decoration:none;font-size:15px;transition:background .2s;border-left:3px solid transparent}
+.sidebar-nav a:hover{background:var(--sidebar-hover)}
+.sidebar-nav a.active{background:var(--sidebar-hover);border-left-color:var(--sidebar-active);color:var(--sidebar-active)}
+.main{margin-left:280px;padding:32px 40px;width:calc(100% - 280px);max-width:1200px}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-toggle{left:0}
+  .sidebar-toggle.shifted{left:280px}
+  .main{margin-left:0;width:100%;padding:20px 16px}
+}
+.back-btn{display:inline-block;margin-bottom:20px;color:var(--text-muted);text-decoration:none;font-size:14px}
+.back-btn:hover{color:var(--accent)}
+h1{font-size:28px;margin-bottom:24px;color:var(--text)}
+h2{font-size:22px;margin:28px 0 16px;color:var(--text)}
+h3{font-size:18px;margin:20px 0 12px;color:var(--text)}
+p{margin-bottom:12px;font-size:15px}
+/* Docs block */
+.docs-block{border:1px solid var(--border);background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.docs-header{padding:16px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:16px;user-select:none;background:var(--card)}
+.docs-header:hover{background:#faf9f6}
+.docs-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;padding:0 24px}
+.docs-body.open{max-height:2000px;padding:0 24px 24px}
+.docs-icon{transition:transform .3s;font-size:14px}
+.docs-icon.open{transform:rotate(180deg)}
+/* Tabs */
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab-btn{padding:8px 20px;border:2px solid var(--border);background:var(--card);border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s}
+.tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.docs-subtitle{font-weight:600;margin:16px 0 8px;font-size:14px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+.docs-list{list-style:none;padding:0}
+.docs-list li{padding:6px 0 6px 24px;position:relative;font-size:15px}
+.docs-list li:before{content:'▸';position:absolute;left:0;color:var(--accent)}
+.copy-btn{margin-top:12px;padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
+.copy-btn:hover{opacity:.9}
+/* Steps */
+.step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.step-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px}
+.step-body{flex:1;min-width:0}
+.step-body p{margin-bottom:8px;font-size:15px}
+.substep-card{display:flex;gap:12px;margin:8px 0 8px 56px;padding:14px 16px;background:#faf9f6;border:1px solid var(--border);border-radius:10px}
+.substep-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#6b6258;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px}
+.substep-card .step-body{flex:1}
+.substep-card .step-body p{font-size:14px}
+/* Images */
+.step-image{margin-top:12px}
+.img-placeholder{width:100%;max-width:600px;height:400px;background:linear-gradient(135deg,#e8e4df,#d4cfc4);border:2px dashed #b8b0a0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#8a8073;cursor:pointer}
+.img-placeholder:hover{border-color:var(--accent);color:var(--accent)}
+/* Alerts */
+.alert{padding:14px 18px;border-radius:10px;margin:12px 0;font-size:15px;border-left:4px solid}
+.alert-warn{background:var(--warn-bg);border-color:var(--warn-border)}
+.alert-info{background:var(--info-bg);border-color:var(--info-border)}
+.alert-error{background:var(--error-bg);border-color:var(--error-border)}
+.alert-success{background:var(--success-bg);border-color:var(--success-border)}
+/* Tables */
+.styled-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.styled-table th{background:var(--sidebar-bg);color:var(--sidebar-text);padding:12px 16px;text-align:left;font-weight:600}
+.styled-table td{padding:12px 16px;border-bottom:1px solid var(--border)}
+.styled-table tr:last-child td{border-bottom:none}
+.styled-table tr:hover td{background:#faf9f6}
+/* Content sections */
+.content-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.content-section h2{margin-top:0}
+.section-icon{font-size:24px;margin-right:8px}
+.numbered-list{padding-left:0;list-style:none;counter-reset:item}
+.numbered-list li{padding:6px 0 6px 32px;position:relative;counter-increment:item}
+.numbered-list li:before{content:counter(item);position:absolute;left:0;top:4px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold}
+.bullet-list{padding-left:0;list-style:none}
+.bullet-list li{padding:6px 0 6px 24px;position:relative}
+.bullet-list li:before{content:'▸';position:absolute;left:0;color:var(--accent)}
+.fines-block{background:#fffbeb;border:1px solid var(--warn-border);border-radius:10px;padding:16px 20px;margin:12px 0}
+.fines-block p{margin-bottom:6px}
+.step-title{font-weight:600;margin-bottom:4px}
+</style>
+</head>
+<body>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">🚚 Санадор Техподдержка</div>
+  <div class="sidebar-nav">
+    <div class="sidebar-section-label">Главная</div>
+    <a href="osnovy-epd.html" class="active">🏠 Главная</a>
+    <div class="sidebar-section-label">Инструкции</div>
+    <a href="osnovy-epd.html" class="active">🏠 Основы ЭПД</a>
+<a href="cryptopro.html" class="">🔒 КриптоПро</a>
+<a href="perevozchik.html" class="">🚚 Регистрация: Перевозчик</a>
+<a href="gruzootpravitel.html" class="">📦 Регистрация: Грузоотправитель</a>
+<a href="poluchatel.html" class="">📦 Регистрация: Получатель</a>
+
+    <div class="sidebar-section-label">Справочники</div>
+    <a href="#" class="">🔗 Важные ссылки</a>
+  </div>
+</nav>
+<button class="sidebar-toggle" id="toggle" onclick="toggleSidebar()">&#9776;</button>
+<main class="main">
+<a href="#" class="back-btn">← Назад</a>
+<h1>Основы ЭПД</h1>
+
+<div class="content-section">
+  <h2><span class="section-icon">📄</span> Что такое электронные перевозочные документы</h2>
+  <p>Электронные перевозочные документы (ЭПД) — это цифровые аналоги транспортных документов. Государство переводит логистику на электронный документооборот и создаёт единую платформу, чтобы участники перевозок могли обмениваться данными в реальном времени.</p>
+  <h3>Зачем это нужно</h3>
+  <ol class="numbered-list">
+    <li>Все участники перевозки видят документы в системе и подписывают их каждый в свою очередь.</li>
+    <li>Данные моментально передаются контрагентам и в госорганы.</li>
+    <li>ЭПД нельзя потерять или подделать.</li>
+    <li>Закрывающие документы приходят сразу — не нужно ждать бумажные оригиналы.</li>
+    <li>Сервисы ЭПД автоматически проверяют заполнение на ошибки.</li>
+    <li>Перевозку можно отследить на каждом этапе.</li>
+    <li>Все документы систематизированы и хранятся в архиве ГИС ЭПД.</li>
+  </ol>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">📋</span> Виды электронных документов</h2>
+  <h3>Электронная транспортная накладная (ЭТрН)</h3>
+  <p>Основной документ, подтверждающий заключение договора перевозки груза на автомобиле. Содержит данные о грузоотправителе, перевозчике, получателе, маршруте и самом грузе.</p>
+  <h3>Электронные заказы и заявки (ЭЗЗ)</h3>
+  <p>Документы для заказчика перевозки и перевозчика, необходимые для согласования рейса. Оформляются на каждую перевозку с каждым перевозчиком.</p>
+  <h3>Поручение экспедитору (ЭПЭ)</h3>
+  <p>Документ, который клиент выдаёт экспедитору, с перечнем и условиями экспедиторских услуг.</p>
+  <h3>Экспедиторская расписка (ЭЭР)</h3>
+  <p>Подтверждает, что экспедитор получил груз от клиента и несёт за него ответственность.</p>
+  <h3>Складская расписка (ЭСР)</h3>
+  <p>Подтверждает, что экспедитор принял груз для временного хранения на складе.</p>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">👥</span> Участники ЭПД</h2>
+  <h3>Грузоотправитель</h3>
+  <p>Компания или ИП, которое отправляет груз через перевозчика от своего имени или от имени владельца груза (это может быть и экспедитор). Создаёт ЭТрН, заполняет и подписывает первый титул.</p>
+  <h3>Перевозчик</h3>
+  <p>Компания или ИП, которое принимает груз у отправителя и везёт его получателю. Подписывает титулы на этапах приёма и сдачи груза (титул 2 и титул 4).</p>
+  <h3>Грузополучатель</h3>
+  <p>Компания или ИП, которое принимает груз от перевозчика. При приёмке получатель подписывает электронную накладную (титул 3). Без этой подписи перевозка не считается завершённой, а статус груза в системе останется «в пути».</p>
+  <h3>Экспедитор</h3>
+  <p>Компания или ИП, которое организует перевозку: разрабатывает маршрут, страхует груз, готовит документы и контролирует весь процесс. Экспедитор может быть:</p>
+  <ul class="bullet-list">
+    <li>Грузоотправителем — если принял груз по экспедиторской расписке;</li>
+    <li>Перевозчиком — если везёт груз на своём транспорте.</li>
+  </ul>
+  <div class="alert alert-info">ℹ️ До 1 мая 2026 года все экспедиторы обязаны зарегистрироваться в реестре экспедиторов на платформе «ГосЛог» и с 1 сентября работать только с ЭПД.</div>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">⚙️</span> Как устроен процесс</h2>
+  <p>Все электронные накладные оформляются через оператора ИС ЭПД, который передаёт их в ГИС ЭПД — государственную информационную систему, объединяющую данные о грузовых перевозках. Порядок работы установлен постановлением.</p>
+  <p>Между ГИС ЭПД и участниками перевозок — аккредитованные операторы (Пример: Калуга Астрал). Для работы нужно выбрать оператора и заключить с ним договор. Между операторами работает роуминг.</p>
+  <div class="step-image"><div class="img-placeholder">📷 Схема работы ГИС ЭПД</div></div>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">📑</span> Из чего состоит ЭТрН: титулы</h2>
+  <p>Электронная транспортная накладная состоит из титулов — частей, которые каждый участник перевозки заполняет и подписывает на своём этапе. Всего предусмотрено девять титулов: четыре обязательных (Т1–Т4) и пять дополнительных (Т5–Т9).</p>
+  <h3>Обязательные титулы</h3>
+  <table class="styled-table">
+    <tr><th>Титул</th><th>Кто подписывает</th><th>Когда</th><th>Что содержит</th></tr>
+    <tr><td>Титул 1</td><td>Грузоотправитель (КЭП / НЭП Госключа)</td><td>При передаче груза к перевозке</td><td>Сведения об участниках перевозки; условия договора; сведения о ТС и водителе; сведения о грузе; сведения о сопроводительных документах и обстоятельствах погрузки</td></tr>
+    <tr><td>Титул 2</td><td>Водитель (ПЭП), затем перевозчик (КЭП + МЧД)</td><td>При приёме груза на погрузке</td><td>Сведения о принятии груза и его состоянии; характеристики груза; замечания при наличии</td></tr>
+    <tr><td>Титул 3</td><td>Грузополучатель (КЭП / НЭП Госключа)</td><td>При получении груза на выгрузке</td><td>Фактические дата и время прибытия; результат приёмки; состояние груза; замечания и комментарии при наличии; отказ от приёма (при необходимости)</td></tr>
+    <tr><td>Титул 4</td><td>Водитель (ПЭП), затем перевозчик (КЭП + МЧД)</td><td>После сдачи груза получателю</td><td>Подтверждение, что груз выдан грузополучателю; фиксация завершения перевозки; подпись с датой и временем</td></tr>
+  </table>
+  <h3>Дополнительные титулы</h3>
+  <p>Если во время перевозки произошли изменения, используют дополнительные титулы. Переоформлять документ с нуля не нужно — достаточно подписать новый титул с новыми данными.</p>
+  <ul class="bullet-list">
+    <li>Титул 5: — итоговая стоимость перевозки (формирует грузоотправитель).</li>
+    <li>Титул 6: — подтверждение стоимости перевозки.</li>
+    <li>Титул 7: — если меняется грузополучатель или адрес доставки.</li>
+    <li>Титул 8: — если меняется транспортное средство или водитель.</li>
+    <li>Титул 9: — переадресовка груза по инициативе грузоотправителя.</li>
+  </ul>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">🔑</span> Электронные подписи и МЧД</h2>
+  <p>В ЭПД используются разные виды электронной подписи в зависимости от роли участника:</p>
+  <table class="styled-table">
+    <tr><th>Кто подписывает</th><th>Тип подписи</th><th>МЧД нужна?</th></tr>
+    <tr><td>Руководитель организации или ИП</td><td>КЭП (от ФНС или Госключа)</td><td>Нет</td></tr>
+    <tr><td>Сотрудник (логист, диспетчер, бухгалтер)</td><td>КЭП + МЧД</td><td>Да, обязательно</td></tr>
+    <tr><td>Водитель (сотрудник перевозчика)</td><td>ПЭП (через мобильное приложение)</td><td>Нет</td></tr>
+    <tr><td>Водитель-ИП (перевозчик)</td><td>КЭП ИП (через Госключ)</td><td>Нет</td></tr>
+    <tr><td>Грузополучатель (юрлицо/ИП)</td><td>КЭП или НЭП Госключа</td><td>Да, если подписывает сотрудник</td></tr>
+    <tr><td>Грузополучатель (физлицо)</td><td>УНЭП Госключа или ПЭП</td><td>Нет</td></tr>
+  </table>
+  <h3>Машиночитаемая доверенность (МЧД)</h3>
+  <p>МЧД — это электронный документ в формате XML, подтверждающий полномочия сотрудника действовать от имени организации или ИП. Без МЧД система не примет подпись сотрудника, выступающего от лица компании. МЧД подписывается УКЭП руководителя юридического лица или ИП.</p>
+  <p>МЧД обязательна для:</p>
+  <ul class="bullet-list">
+    <li>сотрудника грузоотправителя, подписывающего титул Т1;</li>
+    <li>логиста или диспетчера перевозчика, подписывающего титулы Т2 и Т4;</li>
+    <li>сотрудника грузополучателя, подписывающего титул Т3.</li>
+  </ul>
+  <div class="alert alert-success">✅ Руководитель, подписывающий документы лично, и ИП без сотрудников МЧД не оформляют.</div>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">💬</span> Комментарии и замечания в ЭТрН</h2>
+  <p>Любой участник перевозки может оставить комментарии и замечания в своём титуле. Это важный механизм: если грузоотправитель не укажет расхождения, а грузополучатель подпишет приёмку без замечаний, потом будет сложно доказать, что повреждения возникли до передачи груза.</p>
+  <h3>Что можно отметить в замечаниях</h3>
+  <p>Водитель может оставить комментарии в отношении:</p>
+  <ul class="bullet-list">
+    <li>фактических даты и времени прибытия, постановки на погрузку и убытия;</li>
+    <li>фактического состояния груза, крепления, тары, упаковки, маркировки и опломбирования;</li>
+    <li>массы груза и количества грузовых мест;</li>
+    <li>проведения погрузочных работ.</li>
+  </ul>
+  <p>Грузополучатель при приёмке указывает:</p>
+  <ul class="bullet-list">
+    <li>результат приёмки: принять груз, принять частично или отказать в приёме;</li>
+    <li>фактическую массу и количество принятых мест;</li>
+    <li>замечания по состоянию груза — недостача, повреждение упаковки, нарушение пломб, несоответствие номенклатуры;</li>
+    <li>комментарий в свободной форме с детализацией обнаруженных проблем.</li>
+  </ul>
+  <p>Перевозчик может оставить комментарии об условиях доставки груза при необходимости.</p>
+  <h3>Важные правила работы с замечаниями</h3>
+  <ul class="bullet-list">
+    <li>После того как водитель подписал документ ПЭП, изменить сделанные оговорки или отозвать подпись нельзя.</li>
+    <li>Недостачу, повреждения и другие видимые недостатки нужно отражать непосредственно при приёмке. Если сначала подтвердить получение без замечаний, а потом заявить о повреждении — доказать, что нарушение возникло до передачи груза, будет сложно.</li>
+    <li>Если расхождение в весе или номенклатуре обнаружено после подписания титула Т2, корректировать Т1 нельзя. Грузополучатель фиксирует фактическое состояние в Т3, а параллельно составляется акт расхождений (ТОРГ-2 или аналог).</li>
+    <li>Если грузополучатель обнаружил несоответствие, ему нужно немедленно связаться с отправителем. Отправитель создаёт исправленный титул и направляет на подпись перевозчику.</li>
+  </ul>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">📝</span> Черновики ЭПД</h2>
+  <p>Черновик — это подготовленный, но ещё не подписанный электронной подписью документ. Работа с черновиками встроена в большинство сервисов операторов ИС ЭПД и позволяет комфортно готовить документы к отправке.</p>
+  <h3>Как это работает</h3>
+  <ol class="numbered-list">
+    <li>Участник создаёт документ в личном кабинете оператора или в своей учётной системе, заполняет данные о грузе, сторонах перевозки, маршруте и условиях.</li>
+    <li>Документ сохраняется как черновик — его можно редактировать, возвращаться к нему позже, копировать данные из ранее оформленных перевозок или использовать типовые шаблоны для регулярных рейсов.</li>
+    <li>Когда все поля заполнены, документ проверяется системой на обязательные реквизиты и форматы данных. Незаполненные обязательные поля подсвечиваются.</li>
+    <li>После проверки участник подписывает черновик электронной подписью. С этого момента документ становится юридически значимым и передаётся оператору, который направляет его в ГИС ЭПД и следующему участнику перевозки.</li>
+  </ol>
+  <h3>Черновики от контрагентов</h3>
+  <p>Транспортные и экспедиторские компании могут присылать черновики документов своим клиентам. Например, экспедитор готовит черновик электронного поручения (ЭПЭ) на основании заявки клиента и отправляет XML-файл на email или напрямую в личный кабинет ЭДО клиента. Клиент загружает черновик, проверяет данные, при необходимости дополняет незаполненные поля и подписывает своей КЭП.</p>
+  <p>Пока черновик не подписан обеими сторонами, перевозка не начнётся: без подписанного поручения экспедитору груз водителю не передадут.</p>
+  <h3>Важные нюансы</h3>
+  <ul class="bullet-list">
+    <li>В самой ГИС ЭПД черновики создавать нельзя. Документ готовится в информационной системе своего оператора и только после подписания направляется в ГИС ЭПД.</li>
+    <li>После подписания титула электронной подписью изменить его нельзя. Если нужно исправить ошибку, оформляется исправительный титул.</li>
+    <li>Если связь нестабильна, документ можно сохранить как черновик у оператора. После восстановления соединения оператор автоматически передаст его в ГИС ЭПД.</li>
+    <li>Черновики с изменениями (если клиент внёс правки в предложенный экспедитором документ) могут рассматриваться дольше — до нескольких часов.</li>
+  </ul>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">🚚</span> Пошаговый процесс оформления ЭТрН</h2>
+  <ol class="numbered-list">
+    <li>Грузоотправитель создаёт ЭТрН в системе, личном кабинете или на странице оператора ИС ЭПД. Вносит сведения о грузе, сторонах перевозки, транспортном средстве, водителе, маршруте и условиях доставки. Подписывает свой титул (Т1) электронной подписью.</li>
+    <li>Документ через оператора ИС ЭПД становится доступен перевозчику. Водитель открывает документ в мобильном приложении, проверяет данные и подтверждает приём груза — подписывает титул Т2 КЭП.</li>
+    <li>Грузополучатель принимает груз, проверяет состояние, указывает результат приёмки и подписывает титул Т3 КЭП. Если есть замечания — фиксирует их в титуле.</li>
+    <li>Водитель подтверждает передачу груза получателю. Перевозчик подписывает заключительный титул Т4 КЭП, завершая документооборот.</li>
+    <li>Документооборот считается завершённым, когда все обязательные титулы оформлены и подписаны. Статус документа в ГИС ЭПД меняется на «Принят грузополучателем» или «Сдан перевозчиком».</li>
+  </ol>
+  <div class="step-image"><div class="img-placeholder">📷 Схема оформления ЭТрН</div></div>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">📱</span> QR-код ЭПД</h2>
+  <p>Для каждого документа ЭТрН формируется отдельный QR-код. Его генерирует ГИС ЭПД автоматически после подписания титула Т2. QR-код содержит идентификатор документа и подписан электронной подписью ГИС ЭПД.</p>
+  <p>QR-код предъявляется инспектору ГИБДД на экране смартфона или планшета.</p>
+  <div class="step-image"><div class="img-placeholder">📷 QR-код ЭПД</div></div>
+</div>
+
+<div class="content-section">
+  <h2><span class="section-icon">⚠️</span> Штрафы и ответственность</h2>
+  <p>С сентября 2026 года действуют санкции за работу без ЭПД. До этого момента применяются нормы КоАП РФ об отсутствии перевозочных документов.</p>
+  <h3>Для экспедиторов</h3>
+  <div class="fines-block">
+    <p><strong>Штрафы за работу без вступления в реестр ГИС ЭПД (ст. 11.14.3 КоАП):</strong></p>
+    <p>Гражданам и ИП: 3000–5000 ₽ при первом нарушении, 5000–10 000 ₽ при повторном.</p>
+    <p>Юрлицам: 100 000–300 000 ₽ при первом нарушении, 500 000–1 000 000 ₽ при повторном.</p>
+  </div>
+  <div class="fines-block">
+    <p><strong>Штраф за непредставление сведений о свойствах груза:</strong></p>
+    <p>Гражданам: 3000–5000 ₽.</p>
+    <p>Должностным лицам: 20 000–30 000 ₽.</p>
+    <p>ИП: 30 000–50 000 ₽.</p>
+    <p>Юрлицам: 50 000–100 000 ₽.</p>
+  </div>
+  <h3>Для перевозчиков</h3>
+  <div class="fines-block">
+    <p><strong>Штрафы за перевозку без транспортной накладной (ст. 12.3 КоАП):</strong></p>
+    <p>Гражданам: 500 ₽.</p>
+    <p>Должностным лицам: 1500 ₽.</p>
+  </div>
+  <div class="fines-block">
+    <p><strong>Штраф за сообщение недостоверных данных о свойствах груза (ст. 12.21.1 КоАП):</strong></p>
+    <p>Физлицам: 2250–3000 ₽.</p>
+    <p>Должностным лицам: 22 500–30 000 ₽.</p>
+  </div>
+  <div class="alert alert-warn">⚠️ До 1 марта штрафует только ДПС — другие ведомства пока не применяют санкции.</div>
+</div>
+
+<div style="margin-top:24px">
+  <a href="osnovy-epd.html" class="back-btn">← На главную</a>
+  <a href="cryptopro.html" style="float:right;color:var(--accent);text-decoration:none;font-size:14px">Инструкция по КриптоПро →</a>
+</div>
+
+</main>
+<script>
+function toggleSidebar(){
+  var s=document.getElementById('sidebar');
+  var t=document.getElementById('toggle');
+  s.classList.toggle('closed');
+  t.classList.toggle('shifted');
+}
+function toggleDocs(header){
+  var body=header.nextElementSibling;
+  var icon=header.querySelector('.docs-icon');
+  body.classList.toggle('open');
+  icon.classList.toggle('open');
+}
+function switchTab(btn){
+  var tabs=btn.parentElement;
+  var contents=tabs.parentElement.querySelectorAll('.tab-content');
+  tabs.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  var idx=Array.from(tabs.querySelectorAll('.tab-btn')).indexOf(btn);
+  contents.forEach((c,i)=>c.classList.toggle('active',i===idx));
+}
+function copyList(btn){
+  var list=btn.previousElementSibling;
+  var text=Array.from(list.querySelectorAll('li')).map(li=>li.textContent).join('\n');
+  navigator.clipboard.writeText(text);
+  btn.textContent='✅ Скопировано!';
+  setTimeout(()=>btn.textContent='📋 Копировать список',2000);
+}
+</script>
+</body>
+</html>
