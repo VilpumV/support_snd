@@ -1,360 +1,574 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Регистрация в ЭПД: Грузоотправитель</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --sidebar-bg:#2d2a26;
-  --sidebar-text:#e8e4df;
-  --sidebar-active:#d97706;
-  --sidebar-hover:#3d3833;
-  --accent:#d97706;
-  --accent-light:#fef3c7;
-  --bg:#f5f3f0;
-  --card:#ffffff;
-  --border:#e0dccd;
-  --text:#1a1a1a;
-  --text-muted:#6b6258;
-  --warn-bg:#fef3c7;
-  --warn-border:#f59e0b;
-  --info-bg:#d1fae5;
-  --info-border:#10b981;
-  --error-bg:#fee2e2;
-  --error-border:#ef4444;
-  --success-bg:#d1fae5;
-  --success-border:#10b981;
-}
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;line-height:1.6}
-.sidebar{width:280px;background:var(--sidebar-bg);color:var(--sidebar-text);position:fixed;height:100vh;overflow-y:auto;z-index:1000;transition:transform .3s}
-.sidebar.closed{transform:translateX(-100%)}
-.sidebar-toggle{position:fixed;top:16px;left:280px;z-index:1001;background:var(--accent);color:#fff;border:none;padding:10px 14px;cursor:pointer;border-radius:0 8px 8px 0;font-size:18px;transition:left .3s}
-.sidebar-toggle.shifted{left:0}
-.sidebar-header{padding:24px 20px 16px;font-size:18px;font-weight:bold;display:flex;align-items:center;gap:10px;border-bottom:1px solid #3d3833}
-.sidebar-nav{padding:12px 0}
-.sidebar-section-label{padding:8px 20px;font-size:12px;text-transform:uppercase;color:#8a8073;letter-spacing:1px;margin-top:8px}
-.sidebar-nav a{display:block;padding:10px 20px;color:var(--sidebar-text);text-decoration:none;font-size:15px;transition:background .2s;border-left:3px solid transparent}
-.sidebar-nav a:hover{background:var(--sidebar-hover)}
-.sidebar-nav a.active{background:var(--sidebar-hover);border-left-color:var(--sidebar-active);color:var(--sidebar-active)}
-.main{margin-left:280px;padding:32px 40px;width:calc(100% - 280px);max-width:1200px}
-@media(max-width:768px){
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-  .sidebar-toggle{left:0}
-  .sidebar-toggle.shifted{left:280px}
-  .main{margin-left:0;width:100%;padding:20px 16px}
-}
-.back-btn{display:inline-block;margin-bottom:20px;color:var(--text-muted);text-decoration:none;font-size:14px}
-.back-btn:hover{color:var(--accent)}
-h1{font-size:28px;margin-bottom:24px;color:var(--text)}
-h2{font-size:22px;margin:28px 0 16px;color:var(--text)}
-h3{font-size:18px;margin:20px 0 12px;color:var(--text)}
-p{margin-bottom:12px;font-size:15px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#faf8f5;color:#333;line-height:1.6}
+
+/* TOP BAR */
+.topbar{background:#2d2a26;color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.topbar .logo{font-size:20px;font-weight:700}
+.topbar .subtitle{font-size:13px;color:#c9a96e;margin-left:8px}
+.burger{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
+.search-box{margin-left:auto;display:flex;gap:6px}
+.search-box input{padding:7px 14px;border:none;border-radius:6px;font-size:14px;width:200px}
+.search-box button{padding:7px 14px;background:#c9a96e;color:#2d2a26;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px}
+
+/* LAYOUT */
+.layout{display:flex;gap:0;min-height:calc(100vh - 56px);padding-right:300px}
+
+/* LEFT SIDEBAR */
+.sidebar-left{width:320px;background:#2d2a26;color:#e8e0d4;padding:0;flex-shrink:0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-left .nav-header{padding:16px 20px 8px;font-size:13px;text-transform:uppercase;color:#c9a96e;font-weight:700;letter-spacing:1px}
+.sidebar-left a{display:block;color:#e8e0d4;text-decoration:none;padding:9px 20px;transition:background .15s;font-size:15px;cursor:pointer}
+.sidebar-left a:hover{background:#3d3a35;color:#fff}
+.sidebar-left a.active{background:#c9a96e;color:#2d2a26;font-weight:600}
+.sidebar-left .nav-group-title{padding:14px 20px 6px;font-size:13px;text-transform:uppercase;color:#c9a96e;font-weight:700;letter-spacing:1px}
+
+.expandable > .expand-header{display:flex;align-items:center;justify-content:space-between;padding:9px 20px;cursor:pointer;color:#e8e0d4;font-size:15px;transition:background .15s}
+.expandable > .expand-header:hover{background:#3d3a35}
+.expandable > .expand-header .arrow{transition:transform .2s;font-size:12px;color:#c9a96e}
+.expandable.open > .expand-header .arrow{transform:rotate(90deg)}
+.expand-body{display:none;padding:0 0 6px}
+.expandable.open .expand-body{display:block}
+.expand-body a{padding:7px 20px 7px 44px;font-size:14px;color:#b8b0a4}
+.expand-body a:hover{background:#3d3a35;color:#fff}
+.expand-body a.active{background:#c9a96e;color:#2d2a26;font-weight:600}
+
+.nav-numbered{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;color:#e8e0d4;text-decoration:none;font-size:15px;transition:background .15s}
+.nav-numbered:hover{background:#3d3a35;color:#fff}
+.nav-numbered .num-badge{background:#c9a96e;color:#2d2a26;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.nav-numbered.active{background:#c9a96e;color:#2d2a26}
+.nav-numbered.active .num-badge{background:#2d2a26;color:#c9a96e}
+
+.expandable .expand-header .num-badge{background:#c9a96e;color:#2d2a26;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;margin-right:10px}
+.expandable .expand-header .title-text{flex:1}
+.expandable .expand-header .arrow{margin-left:8px}
+
+.placeholder-note{padding:7px 20px 7px 44px;font-size:13px;color:#7a756d;font-style:italic}
+
+/* CENTER */
+.center{flex:1;padding:28px 32px;max-width:760px}
+.center h1{font-size:28px;color:#2d2a26;margin-bottom:18px}
+.center h2{font-size:22px;color:#2d2a26;margin:24px 0 12px}
+.center h3{font-size:18px;color:#4a4640;margin:20px 0 8px}
+.center p{margin-bottom:12px}
+.center .img-placeholder{width:100%;max-width:600px;height:360px;background:#f0ede8;border:2px dashed #ccc;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#aaa;margin:10px 0}
+.center .img-placeholder:hover{border-color:#c9a96e;color:#c9a96e}
+.center figcaption{text-align:center;font-size:13px;color:#999;margin-top:6px}
+
+.back-btn{display:inline-block;margin-bottom:18px;color:#666;text-decoration:none;font-size:14px}
+.back-btn:hover{color:#c9a96e}
+
 /* Docs block */
-.docs-block{border:1px solid var(--border);background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.docs-header{padding:16px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:16px;user-select:none;background:var(--card)}
+.docs-block{border:1px solid #e0ddd8;background:#fff;border-radius:10px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.docs-header{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:16px;user-select:none}
 .docs-header:hover{background:#faf9f6}
-.docs-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;padding:0 24px}
-.docs-body.open{max-height:2000px;padding:0 24px 24px}
+.docs-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;padding:0 20px}
+.docs-body.open{max-height:3000px;padding:0 20px 20px}
 .docs-icon{transition:transform .3s;font-size:14px}
 .docs-icon.open{transform:rotate(180deg)}
+
 /* Tabs */
 .tabs{display:flex;gap:8px;margin-bottom:16px}
-.tab-btn{padding:8px 20px;border:2px solid var(--border);background:var(--card);border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s}
-.tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tab-btn{padding:8px 20px;border:2px solid #e0ddd8;background:#fff;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s}
+.tab-btn.active{background:#c9a96e;color:#2d2a26;border-color:#c9a96e}
 .tab-content{display:none}
 .tab-content.active{display:block}
-.docs-subtitle{font-weight:600;margin:16px 0 8px;font-size:14px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+.docs-subtitle{font-weight:600;margin:16px 0 8px;font-size:14px;color:#666;text-transform:uppercase;letter-spacing:.5px}
 .docs-list{list-style:none;padding:0}
 .docs-list li{padding:6px 0 6px 24px;position:relative;font-size:15px}
-.docs-list li:before{content:'▸';position:absolute;left:0;color:var(--accent)}
-.copy-btn{margin-top:12px;padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
-.copy-btn:hover{opacity:.9}
+.docs-list li:before{content:'\25B8';position:absolute;left:0;color:#c9a96e}
+.copy-btn{margin-top:12px;padding:8px 16px;background:#c9a96e;color:#2d2a26;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
+.copy-btn:hover{background:#b8964e}
+
 /* Steps */
-.step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.step-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px}
+.step-card{display:flex;gap:16px;background:#fff;border:1px solid #e0ddd8;border-radius:10px;padding:20px;margin-bottom:12px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.step-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#c9a96e;color:#2d2a26;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
 .step-body{flex:1;min-width:0}
 .step-body p{margin-bottom:8px;font-size:15px}
-.substep-card{display:flex;gap:12px;margin:8px 0 8px 56px;padding:14px 16px;background:#faf9f6;border:1px solid var(--border);border-radius:10px}
-.substep-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#6b6258;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px}
+.substep-card{display:flex;gap:12px;margin:8px 0 8px 60px;padding:14px 16px;background:#faf9f6;border:1px solid #e0ddd8;border-radius:10px}
+.substep-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#6b6258;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
 .substep-card .step-body{flex:1}
 .substep-card .step-body p{font-size:14px}
-/* Images */
 .step-image{margin-top:12px}
-.img-placeholder{width:100%;max-width:600px;height:400px;background:linear-gradient(135deg,#e8e4df,#d4cfc4);border:2px dashed #b8b0a0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#8a8073;cursor:pointer}
-.img-placeholder:hover{border-color:var(--accent);color:var(--accent)}
+
 /* Alerts */
-.alert{padding:14px 18px;border-radius:10px;margin:12px 0;font-size:15px;border-left:4px solid}
-.alert-warn{background:var(--warn-bg);border-color:var(--warn-border)}
-.alert-info{background:var(--info-bg);border-color:var(--info-border)}
-.alert-error{background:var(--error-bg);border-color:var(--error-border)}
-.alert-success{background:var(--success-bg);border-color:var(--success-border)}
-/* Tables */
-.styled-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.styled-table th{background:var(--sidebar-bg);color:var(--sidebar-text);padding:12px 16px;text-align:left;font-weight:600}
-.styled-table td{padding:12px 16px;border-bottom:1px solid var(--border)}
-.styled-table tr:last-child td{border-bottom:none}
-.styled-table tr:hover td{background:#faf9f6}
-/* Content sections */
-.content-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.content-section h2{margin-top:0}
-.section-icon{font-size:24px;margin-right:8px}
-.numbered-list{padding-left:0;list-style:none;counter-reset:item}
-.numbered-list li{padding:6px 0 6px 32px;position:relative;counter-increment:item}
-.numbered-list li:before{content:counter(item);position:absolute;left:0;top:4px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold}
-.bullet-list{padding-left:0;list-style:none}
-.bullet-list li{padding:6px 0 6px 24px;position:relative}
-.bullet-list li:before{content:'▸';position:absolute;left:0;color:var(--accent)}
-.fines-block{background:#fffbeb;border:1px solid var(--warn-border);border-radius:10px;padding:16px 20px;margin:12px 0}
-.fines-block p{margin-bottom:6px}
-.step-title{font-weight:600;margin-bottom:4px}
+.alert{padding:14px 18px;border-radius:8px;margin:12px 0;font-size:15px;border-left:4px solid}
+.alert-warn{background:#fff8e1;border-color:#ffc107}
+.alert-info{background:#e8f4fd;border-color:#2196f3}
+.alert-error{background:#ffebee;border-color:#f44336}
+.alert-success{background:#e8f5e9;border-color:#4caf50}
+
+/* RIGHT SIDEBAR */
+.sidebar-right{width:300px;flex-shrink:0;padding:20px 18px;background:#f5f2ed;position:fixed;right:0;top:56px;height:calc(100vh - 56px);overflow-y:auto;z-index:50}
+.sidebar-right .info-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.sidebar-right .partner-badge{background:#c9a96e;color:#2d2a26;padding:14px;border-radius:10px;text-align:center;font-weight:600;margin-bottom:14px;font-size:15px}
+.sidebar-right h3{font-size:16px;color:#2d2a26;margin-bottom:10px;border-bottom:2px solid #c9a96e;padding-bottom:6px}
+.news-item{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f0ede8}
+.news-date{font-size:12px;color:#999;font-weight:600}
+.news-title{font-size:14px;color:#4a4640;margin-top:2px}
+.news-counter{text-align:center;font-size:13px;color:#c9a96e;font-weight:600;margin-top:6px}
+.office-item{margin-bottom:10px;font-size:14px}
+.office-item .office-name{font-weight:600;color:#2d2a26}
+.office-item .office-addr{color:#666;font-size:13px}
+.office-item .office-staff{font-size:12px;color:#999;margin-top:2px}
+.phone-note{font-size:12px;color:#999;margin-bottom:8px}
+.show-phones-btn{display:block;width:100%;padding:9px;background:#c9a96e;color:#2d2a26;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}
+.show-phones-btn:hover{background:#b8964e}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+  .sidebar-right{width:240px}
+  .layout{padding-right:240px}
+}
+@media(max-width:900px){
+  .sidebar-right{width:180px}
+  .layout{padding-right:180px}
+  .sidebar-left{position:fixed;left:-320px;top:56px;z-index:200;transition:left .25s;width:300px;box-shadow:2px 0 10px rgba(0,0,0,.2)}
+  .sidebar-left.show{left:0}
+  .burger{display:block}
+  .center{padding:20px 16px}
+  .search-box input{width:140px}
+}
+
+/* collapsible group */
+.collapsible-group > .group-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 6px;font-size:13px;text-transform:uppercase;color:#c9a96e;font-weight:700;letter-spacing:1px;cursor:pointer;user-select:none}
+.collapsible-group > .group-header:hover{color:#fff}
+.collapsible-group > .group-header .group-arrow{transition:transform .2s;font-size:12px}
+.collapsible-group.open > .group-header .group-arrow{transform:rotate(90deg)}
+.collapsible-group > .group-body{display:none}
+.collapsible-group.open > .group-body{display:block}
 </style>
 </head>
 <body>
-<nav class="sidebar" id="sidebar">
-  <div class="sidebar-header">🚚 Санадор Техподдержка</div>
-  <div class="sidebar-nav">
-    <div class="sidebar-section-label">Главная</div>
-    <a href="osnovy-epd.html" class="">🏠 Главная</a>
-    <div class="sidebar-section-label">Инструкции</div>
-    <a href="osnovy-epd.html" class="">🏠 Основы ЭПД</a>
-<a href="cryptopro.html" class="">🔒 КриптоПро</a>
-<a href="perevozchik.html" class="">🚚 Регистрация: Перевозчик</a>
-<a href="gruzootpravitel.html" class="active">📦 Регистрация: Грузоотправитель</a>
-<a href="poluchatel.html" class="">📦 Регистрация: Получатель</a>
 
-    <div class="sidebar-section-label">Справочники</div>
-    <a href="#" class="">🔗 Важные ссылки</a>
-  </div>
-</nav>
-<button class="sidebar-toggle" id="toggle" onclick="toggleSidebar()">&#9776;</button>
-<main class="main">
-<a href="#" class="back-btn">← Назад</a>
-<h1>Регистрация в ЭПД: Грузоотправитель (ООО, ИП)</h1>
-
-<div class="docs-block">
-  <div class="docs-header" onclick="toggleDocs(this)">
-    📋 Документы для регистрации
-    <span class="docs-icon">▼</span>
-  </div>
-  <div class="docs-body">
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab(this)">ДЛЯ ИП</button>
-      <button class="tab-btn" onclick="switchTab(this)">ДЛЯ ООО</button>
-    </div>
-    <div class="tab-content active">
-      <ul class="docs-list">
-        <li>Паспорт ИП и всех водителей, первая страница паспорта и страница с пропиской</li>
-        <li>ВУ (водительское удостоверение) всех водителей, фото с двух сторон</li>
-        <li>СТС (свидетельство транспортного средства) на прицепы и тягачи, фото с двух сторон</li>
-        <li>ИНН ИП</li>
-        <li>Укажите, работаете с НДС или без. Если с НДС — узнать сколько процентов</li>
-        <li>Если ваши ТС в аренде или лизинге — нужен договор аренды или лизинга</li>
-        <li>Контактный номер телефона ИП и всех водителей</li>
-        <li>Банковские реквизиты ИП</li>
-      </ul>
-      <button class="copy-btn" onclick="copyList(this)">📋 Копировать список</button>
-    </div>
-    <div class="tab-content">
-      <div class="docs-subtitle">Документы организации</div>
-      <ul class="docs-list">
-        <li>ИНН / ОГРН</li>
-        <li>Банковские реквизиты (расчётного счёта)</li>
-        <li>Паспорт директора (первая страница, страница с пропиской)</li>
-        <li>Приказ о назначении директора</li>
-        <li>Устав</li>
-        <li>Ставка НДС</li>
-      </ul>
-      <div class="docs-subtitle">Транспортные средства</div>
-      <ul class="docs-list">
-        <li>Свидетельство о регистрации ТС, с двух сторон на машины и на прицепы</li>
-        <li>Если транспорт в аренде / лизинге — договор аренды / лизинга</li>
-      </ul>
-      <div class="docs-subtitle">Водители</div>
-      <ul class="docs-list">
-        <li>Паспорт с пропиской каждого водителя</li>
-        <li>Водительские удостоверения с двух сторон каждого водителя</li>
-        <li>Номера телефонов</li>
-      </ul>
-      <button class="copy-btn" onclick="copyList(this)">📋 Копировать список</button>
-    </div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <button class="burger" onclick="document.querySelector('.sidebar-left').classList.toggle('show')">&#9776;</button>
+  <span class="logo"> Санадор Техподдержка</span>
+  <span class="subtitle">дай сил мне это закончить</span>
+  <div class="search-box">
+    <input type="text" placeholder="Поиск...">
+    <button onclick="alert('Поиск...')">&#128269; Найти</button>
   </div>
 </div>
 
-<div class="alert alert-warn">⚠️ ОБЯЗАТЕЛЬНО работаем через Яндекс Браузер!</div>
+<div class="layout">
 
-<h2>📖 Пошаговая инструкция</h2>
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar-left" id="sidebar">
+    <div class="nav-group-title">Навигация</div>
+    <a href="https://vilpumv.github.io/support_snd/index.html">&#127968; Главная</a>
+    
+    <div class="collapsible-group open" id="etrn-group"><div class="group-header" onclick="this.parentElement.classList.toggle('open')"><span>&#128203; Все об ЭТРН</span><span class="group-arrow">&#9654;</span></div><div class="group-body">
+    
+    <a href="https://vilpumv.github.io/support_snd/osnovy-epd.html" class="nav-numbered">
+      <span class="num-badge">1</span>
+      <span>Основы ЭПД </span>
+    </a>
+    
+    <a href="https://vilpumv.github.io/support_snd/cryptopro.html" class="nav-numbered">
+      <span class="num-badge">2</span>
+      <span>Установка КриптоПро</span>
+    </a>
+    
+    <!-- 3 — expandable -->
+    <div class="expandable open">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="num-badge">3</span>
+        <span class="title-text">Регистрация в ЭПД &rsaquo;</span>
+        <span class="arrow">&#9654;</span>
+      </div>
+      <div class="expand-body">
+        <a href="https://vilpumv.github.io/support_snd/gruzootpravitel.html" class="active">&#128308; Отправитель (ООО, ИП)</a>
+        <a href="https://vilpumv.github.io/support_snd/perevozchik.html">&#128308; Перевоз (ООО, ИП)</a>
+        <a href="https://vilpumv.github.io/support_snd/poluchatel.html">&#128308; Получатель (ИП, ООО)</a>
+      </div>
+    </div>
+    
+    <!-- 4 -->
+    <a href="#" class="nav-numbered">
+      <span class="num-badge">4</span>
+      <span>Админка</span>
+    </a>
+    
+    <!-- 5 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="num-badge">5</span>
+        <span class="title-text">Дружба &rsaquo;</span>
+        <span class="arrow">&#9654;</span>
+      </div>
+      <div class="expand-body">
+        <a href="#">&#128308; Добавление контрагента</a>
+        <a href="#">&#128308; Дружба через админку</a>
+        <a href="#">&#128308; Дружба через сайт</a>
+      </div>
+    </div>
+    
+    <!-- 6 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="num-badge">6</span>
+        <span class="title-text">ЭЗЗ &rsaquo;</span>
+        <span class="arrow">&#9654;</span>
+      </div>
+      <div class="expand-body">
+        <a href="#">&#128308; Грузоотправитель (создание)</a>
+        <a href="#">&#128308; Перевозчик (подписание)</a>
+      </div>
+    </div>
+    
+    <!-- 7 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="num-badge">7</span>
+        <span class="title-text">ЭТРН &rsaquo;</span>
+        <span class="arrow">&#9654;</span>
+      </div>
+      <div class="expand-body">
+        <a href="#">&#128308; Отправитель</a>
+        <a href="#">&#128308; Перевозчик</a>
+        <a href="#">&#128308; Получатель</a>
+      </div>
+    </div>
+    
+    </div><!-- group-body -->
+  </div><!-- collapsible-group -->
 
-<div class="step-card">
-  <div class="step-num">1</div>
-  <div class="step-body"><p>Регистрация в личном кабинете или авторизация. Если ранее уже регистрировались — вводим логин и пароль из SMS. Если нет — нажимаем «Зарегистрироваться», выбираем роль перевозчика и заполняем данные.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Регистрация / авторизация в ЛК</div></div></div>
-</div>
-<div class="alert alert-error">❗ Если регистрация ООО — запрашиваем документы из списка выше. Регистрацию ООО выполняет специалист техподдержки, самостоятельная регистрация ООО невозможна!</div>
+    <!-- Санадор Z — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span style="font-size:18px">&#128241;</span>
+        <span class="title-text">Санадор Z &rsaquo;</span>
+        <span class="arrow">&#9654;</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <!-- ТМС(1С) — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span style="font-size:18px">&#128666;</span>
+        <span class="title-text">ТМС(1С) &rsaquo;</span>
+        <span class="arrow">&#9654;</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <!-- Санадор Агро — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span style="font-size:18px">&#127806;</span>
+        <span class="title-text">Санадор Агро (в будущем...) &rsaquo;</span>
+        <span class="arrow">&#9654;</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <div class="nav-group-title" style="margin-top:14px">Справочники</div>
+    <a href="https://vilpumv.github.io/support_snd/vazhnye-ssylki.html">&#128279; Важные ссылки</a>
+    <a href="https://vilpumv.github.io/support_snd/baza-voprosov.html">&#10067; База вопросов</a>
+  </div>
 
-<div class="step-card">
-  <div class="step-num">2</div>
-  <div class="step-body"><p>Регистрируем в ЭПД. В левом боковом меню личного кабинета разверните вкладку ЭПД и выберите пункт Регистрация. Нажмите на поле «Выбрать сертификат». Если сертификат не найден — ознакомьтесь с инструкцией по настройке КриптоПро.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Раздел ЭПД → Регистрация</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">2.1</div>
-  <div class="step-body"><p>Выбор сертификата. На выбор вам предложат все электронные сертификаты, которые записаны на ваш USB-токен. Выберите необходимый.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Выбор сертификата</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">2.2</div>
-  <div class="step-body"><p>Дождитесь загрузки сертификата, при успехе данные подтянутся автоматически. Нажмите кнопку «Зарегистрироваться в ЭДО».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Кнопка «Зарегистрироваться в ЭДО»</div></div></div>
+  <!-- CENTER -->
+  <div class="center">
+    <a href="https://vilpumv.github.io/support_snd/index.html" class="back-btn">&larr; Назад</a>
+    <h1>Регистрация в ЭПД: Грузоотправитель (ООО, ИП)</h1>
+
+    <div class="docs-block">
+      <div class="docs-header" onclick="toggleDocs(this)">
+        &#128203; Документы для регистрации
+        <span class="docs-icon">&#9660;</span>
+      </div>
+      <div class="docs-body">
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this)">ДЛЯ ИП</button>
+          <button class="tab-btn" onclick="switchTab(this)">ДЛЯ ООО</button>
+        </div>
+        <div class="tab-content active">
+          <ul class="docs-list">
+            <li>Паспорт ИП и всех водителей, первая страница паспорта и страница с пропиской</li>
+            <li>ВУ (водительское удостоверение) всех водителей, фото с двух сторон</li>
+            <li>СТС (свидетельство транспортного средства) на прицепы и тягачи, фото с двух сторон</li>
+            <li>ИНН ИП</li>
+            <li>Укажите, работаете с НДС или без. Если с НДС — узнать сколько процентов</li>
+            <li>Если ваши ТС в аренде или лизинге — нужен договор аренды или лизинга</li>
+            <li>Контактный номер телефона ИП и всех водителей</li>
+            <li>Банковские реквизиты ИП</li>
+          </ul>
+          <button class="copy-btn" onclick="copyList(this)">&#128203; Копировать список</button>
+        </div>
+        <div class="tab-content">
+          <div class="docs-subtitle">Документы организации</div>
+          <ul class="docs-list">
+            <li>ИНН / ОГРН</li>
+            <li>Банковские реквизиты (расчётного счёта)</li>
+            <li>Паспорт директора (первая страница, страница с пропиской)</li>
+            <li>Приказ о назначении директора</li>
+            <li>Устав</li>
+            <li>Ставка НДС</li>
+          </ul>
+          <div class="docs-subtitle">Транспортные средства</div>
+          <ul class="docs-list">
+            <li>Свидетельство о регистрации ТС, с двух сторон на машины и на прицепы</li>
+            <li>Если транспорт в аренде / лизинге — договор аренды / лизинга</li>
+          </ul>
+          <div class="docs-subtitle">Водители</div>
+          <ul class="docs-list">
+            <li>Паспорт с пропиской каждого водителя</li>
+            <li>Водительские удостоверения с двух сторон каждого водителя</li>
+            <li>Номера телефонов</li>
+          </ul>
+          <button class="copy-btn" onclick="copyList(this)">&#128203; Копировать список</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-warn">&#9888;&#65039; ОБЯЗАТЕЛЬНО работаем через Яндекс Браузер!</div>
+
+    <h2>&#128214; Пошаговая инструкция</h2>
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-body"><p>Регистрация в личном кабинете или авторизация. Если ранее уже регистрировались — вводим логин и пароль из SMS. Если нет — нажимаем «Зарегистрироваться», выбираем роль перевозчика и заполняем данные.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Регистрация / авторизация в ЛК</div></div></div>
+    </div>
+    <div class="alert alert-error">&#10071; Если регистрация ООО — запрашиваем документы из списка выше. Регистрацию ООО выполняет специалист техподдержки, самостоятельная регистрация ООО невозможна!</div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-body"><p>Регистрируем в ЭПД. В левом боковом меню личного кабинета разверните вкладку ЭПД и выберите пункт Регистрация. Нажмите на поле «Выбрать сертификат». Если сертификат не найден — ознакомьтесь с инструкцией по настройке КриптоПро.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Раздел ЭПД &rarr; Регистрация</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">2.1</div>
+      <div class="step-body"><p>Выбор сертификата. На выбор вам предложат все электронные сертификаты, которые записаны на ваш USB-токен. Выберите необходимый.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Выбор сертификата</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">2.2</div>
+      <div class="step-body"><p>Дождитесь загрузки сертификата, при успехе данные подтянутся автоматически. Нажмите кнопку «Зарегистрироваться в ЭДО».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Кнопка «Зарегистрироваться в ЭДО»</div></div></div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-body"><p>При необходимости выпускаем МЧД. В левом боковом меню личного кабинета разверните вкладку ЭПД и выберите пункт МЧД.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Раздел ЭПД &rarr; МЧД</div></div></div>
+    </div>
+    <div class="alert alert-info">&#8505;&#65039; Уточняем грузоотправителю: если выпустим МЧД, он сможет подписывать документы без флешки. Выпускаем по необходимости.</div>
+
+    <div class="substep-card">
+      <div class="substep-num">3.1</div>
+      <div class="step-body"><p>На открывшейся странице со списком доверенностей нажмите кнопку «Создать МЧД для сотрудников» (расположена в правом верхнем углу).</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Кнопка «Создать МЧД для сотрудников»</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.2</div>
+      <div class="step-body"><p>В открывшемся окне на шаге «Параметры» будут указаны сроки доверенности, по умолчанию доверенность действует год. Нажмите «Далее».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Шаг «Параметры»</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.3</div>
+      <div class="step-body"><p>Вам может потребоваться подтверждение доступа для сайта. Необходимо дать согласие на действие программы. Нажмите «Да».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Подтверждение доступа</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.4</div>
+      <div class="step-body"><p>Выберите сертификат своей КЭП, чтобы перейти к следующему этапу.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Выбор сертификата КЭП</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.5</div>
+      <div class="step-body"><p>Заполнение сведений о доверителе. Все данные о вашей организации подтянутся из вашего USB-токена. Проверьте заполненность всех данных. Если необходимо заполнить детали адреса, сделайте это вручную. Затем нажмите «Далее».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Сведения о доверителе</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.6</div>
+      <div class="step-body"><p>Проверка данных действующего лица. На этапе «Действующее лицо» проверьте или заполните данные сотрудника, действующего от имени доверителя (руководителя). Убедитесь, что поля с личной информацией (Пол, Фамилия, Имя, Отчество, ИНН, СНИЛС и Должность) заполнены корректно, если данные не подтянулись, введите вручную. После проверки нажмите кнопку «Далее».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Этап «Действующее лицо»</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.7</div>
+      <div class="step-body"><p>Проверка списка представителей. На этапе «Представители» система отобразит список сотрудников, на которых будет осуществлён выпуск МЧД, нажмите кнопку «Создать МЧД».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Этап «Представители»</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.8</div>
+      <div class="step-body"><p>Отслеживание статуса МЧД. После нажатия кнопки «Создать МЧД» вернитесь в общий список доверенностей. Вам необходимо дождаться изменения статуса обработки на «Ожидает подписи». Используйте иконку обновления со стрелочками, чтобы проверить текущее состояние документа в реальном времени.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Статус «Ожидает подписи»</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.9</div>
+      <div class="step-body"><p>Переход к подписанию МЧД. Как только статус документа в реестре изменится на «Ожидает подписи», кликните по соответствующей строке, чтобы открыть детали. В карточке МЧД найдите блок «Действия с МЧД» и нажмите кнопку «Подписать МЧД».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Кнопка «Подписать МЧД»</div></div></div>
+    </div>
+    <div class="alert alert-warn">&#9888;&#65039; Необходимо подписать каждую из трёх МЧД по отдельности!</div>
+    <div class="substep-card">
+      <div class="substep-num">3.10</div>
+      <div class="step-body"><p>Вам может потребоваться подтверждение доступа для сайта. Необходимо дать согласие на действие программы. Нажмите «Да».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Подтверждение доступа</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.11</div>
+      <div class="step-body"><p>Выберите сертификат своей КЭП, чтобы перейти к подписанию, нажмите кнопку «Продолжить».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Выбор сертификата для подписания</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.12</div>
+      <div class="step-body"><p>Регистрация МЧД. Как только статус документа в реестре изменится на «Готова к регистрации», кликните по соответствующей строке, чтобы открыть детали. В карточке МЧД найдите блок «Действия с МЧД» и нажмите кнопку «Зарегистрировать МЧД».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Кнопка «Зарегистрировать МЧД»</div></div></div>
+    </div>
+    <div class="alert alert-warn">&#9888;&#65039; Необходимо подписать каждую из трёх МЧД по отдельности!</div>
+    <div class="substep-card">
+      <div class="substep-num">3.13</div>
+      <div class="step-body"><p>Убедитесь, что у всех доверенностей статус «Отправлена на регистрацию».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Статус «Отправлена на регистрацию»</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">3.14</div>
+      <div class="step-body"><p>Успешное завершение регистрации. Периодически обновляйте страницу со списком МЧД. Как только в колонке «Статус обработки» появится итоговое «Готово», процесс выпуска машиночитаемой доверенности считается полностью завершённым. Документ действителен и готов к использованию в работе!</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Статус «Готово»</div></div></div>
+    </div>
+    <div class="alert alert-success">&#9989; Документ действителен и готов к использованию в работе!</div>
+
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-body"><p>Сообщаем Маше о новом грузоотправителе для настройки дополнительных прав. Указываем название ООО или ИП.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Сообщение о новом грузоотправителе</div></div></div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <div class="step-body"><p>Перезайдите в личный кабинет для того, чтобы обновить права пользователя.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Перезаход в ЛК</div></div></div>
+    </div>
+    <div class="alert alert-warn">&#9888;&#65039; Без перезахода в личный кабинет новые права не применятся!</div>
+
+    <div class="step-card">
+      <div class="step-num">6</div>
+      <div class="step-body"><p>Добавление контрагентов. Когда права настроены, в ЛК грузоотправителя на сайте sanador.ru необходимо добавить контрагентов, с которыми будет работать данный грузоотправитель.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Добавление контрагентов</div></div></div>
+    </div>
+
+    <div class="substep-card">
+      <div class="substep-num">6.1</div>
+      <div class="step-body"><p>Перейдите в раздел Справочники &rarr; «Контрагенты ЭПД» в левом боковом меню личного кабинета.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Справочники &rarr; Контрагенты ЭПД</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">6.2</div>
+      <div class="step-body"><p>На открывшейся странице нажмите кнопку «Добавить контрагента».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Кнопка «Добавить контрагента»</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">6.3</div>
+      <div class="step-body"><p>В появившемся окне выберите вкладку «Создать нового». Укажите ИНН (если ИП) или ИНН и КПП (если ООО). Наименование, ОГРН и адрес заполнятся автоматически. При необходимости отметьте галочки «Грузополучатель» и «Нужен номер ТТН». Нажмите «Создать и добавить».</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Окно «Создать нового» контрагента</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">6.4</div>
+      <div class="step-body"><p>После добавления контрагента воспользуйтесь поиском и найдите его карточку в общем списке.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Поиск контрагента в списке</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">6.4.1</div>
+      <div class="step-body"><p>Если контрагент не появился в поиске, снова нажмите кнопку «Добавить контрагента». В появившемся окне выберите вкладку «Выбрать из справочника» — найдите контрагента по названию или ИНН и нажмите «Добавить». После этого контрагент появится в поиске, и вы сможете найти его карточку в общем списке.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Вкладка «Выбрать из справочника»</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">6.6</div>
+      <div class="step-body"><p>В карточке контрагента выберите необходимый идентификатор ЭПД из выпадающего списка. Если найдено несколько идентификаторов — выберите нужный.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Выбор идентификатора ЭПД</div></div></div>
+    </div>
+    <div class="substep-card">
+      <div class="substep-num">6.7</div>
+      <div class="step-body"><p>Повторите шаги 6.2–6.6 для каждого контрагента. Когда все участники добавлены и выбраны идентификаторы — переходите к созданию ЭТрН.</p>
+      <div class="step-image"><div class="img-placeholder">&#128247; Все контрагенты добавлены</div></div></div>
+    </div>
+    <div class="alert alert-success">&#9989; После добавления всех контрагентов и выбора идентификаторов ЭПД регистрация грузоотправителя полностью завершена!</div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar-right">
+    <div class="partner-badge">
+      Справочная:<br>Официальный партнёр «Калуга Астрал»
+    </div>
+    
+    <div class="info-card">
+      <h3>&#128226; Последние новости</h3>
+      
+      <div class="news-item">
+        <div class="news-date">20 сентября 2026</div>
+        <div class="news-title">Приглашения через админку — Теперь операторы сами могут принимать приглашения на дружбку через админку.</div>
+      </div>
+      
+      <div class="news-item">
+        <div class="news-date">18 сентября 2026</div>
+        <div class="news-title">Автонабор в CRM — теперь доступна функция автонабора номеров прямо из CRM.</div>
+      </div>
+      
+      <div class="news-item" style="border-bottom:none">
+        <div class="news-date">24 сентября 2026</div>
+        <div class="news-title">Мяу — МЯУ МЯУ.</div>
+      </div>
+      
+      <div class="news-counter">Подключено: 500</div>
+    </div>
+    
+    <div class="info-card">
+      <h3>&#127970; Наши офисы</h3>
+      
+      <div class="office-item">
+        <div class="office-name">&#128205; Краснодар</div>
+        <div class="office-addr">Российская улица, 630, 2 этаж</div>
+      </div>
+      
+      <div class="office-item">
+        <div class="office-name">&#128205; Славянск-на-Кубани</div>
+        <div class="office-addr">Улица Дружбы Народов, 63</div>
+        <div class="office-staff">Сотрудники: Галина, Юлия</div>
+        <div class="office-staff">Обед: 13-14</div>
+      </div>
+      
+      <div class="office-item">
+        <div class="office-name">&#128205; Станица Тбилисская</div>
+        <div class="office-addr">Элеваторная улица, 7</div>
+        <div class="office-staff">Сотрудники: Алина, Наталия</div>
+        <div class="office-staff">Обед: 14-15</div>
+      </div>
+    </div>
+    
+    <div class="info-card">
+      <h3>&#128222; Контактные телефоны</h3>
+      <div class="phone-note">Телефоны доступны только для сотрудников.</div>
+      <button class="show-phones-btn" onclick="var n=document.getElementById('phone-list');if(n.style.display==='none'){n.style.display='block';this.textContent='🔒 Скрыть номера';}else{n.style.display='none';this.textContent='🔓 Показать номера';}">&#128274; Показать номера</button>
+      <div id="phone-list" style="display:none;margin-top:10px;font-size:14px;color:#666">
+        Номера телефонов будут добавлены позже.
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<div class="step-card">
-  <div class="step-num">3</div>
-  <div class="step-body"><p>При необходимости выпускаем МЧД. В левом боковом меню личного кабинета разверните вкладку ЭПД и выберите пункт МЧД.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Раздел ЭПД → МЧД</div></div></div>
-</div>
-<div class="alert alert-info">ℹ️ Уточняем грузоотправителю: если выпустим МЧД, он сможет подписывать документы без флешки. Выпускаем по необходимости.</div>
-
-<div class="substep-card">
-  <div class="substep-num">3.1</div>
-  <div class="step-body"><p>На открывшейся странице со списком доверенностей нажмите кнопку «Создать МЧД для сотрудников» (расположена в правом верхнем углу).</p>
-  <div class="step-image"><div class="img-placeholder">📷 Кнопка «Создать МЧД для сотрудников»</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.2</div>
-  <div class="step-body"><p>В открывшемся окне на шаге «Параметры» будут указаны сроки доверенности, по умолчанию доверенность действует год. Нажмите «Далее».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Шаг «Параметры»</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.3</div>
-  <div class="step-body"><p>Вам может потребоваться подтверждение доступа для сайта. Необходимо дать согласие на действие программы. Нажмите «Да».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Подтверждение доступа</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.4</div>
-  <div class="step-body"><p>Выберите сертификат своей КЭП, чтобы перейти к следующему этапу.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Выбор сертификата КЭП</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.5</div>
-  <div class="step-body"><p>Заполнение сведений о доверителе. Все данные о вашей организации подтянутся из вашего USB-токена. Проверьте заполненность всех данных. Если необходимо заполнить детали адреса, сделайте это вручную. Затем нажмите «Далее».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Сведения о доверителе</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.6</div>
-  <div class="step-body"><p>Проверка данных действующего лица. На этапе «Действующее лицо» проверьте или заполните данные сотрудника, действующего от имени доверителя (руководителя). Убедитесь, что поля с личной информацией (Пол, Фамилия, Имя, Отчество, ИНН, СНИЛС и Должность) заполнены корректно, если данные не подтянулись, введите вручную. После проверки нажмите кнопку «Далее».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Этап «Действующее лицо»</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.7</div>
-  <div class="step-body"><p>Проверка списка представителей. На этапе «Представители» система отобразит список сотрудников, на которых будет осуществлён выпуск МЧД, нажмите кнопку «Создать МЧД».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Этап «Представители»</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.8</div>
-  <div class="step-body"><p>Отслеживание статуса МЧД. После нажатия кнопки «Создать МЧД» вернитесь в общий список доверенностей. Вам необходимо дождаться изменения статуса обработки на «Ожидает подписи». Используйте иконку обновления со стрелочками, чтобы проверить текущее состояние документа в реальном времени.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Статус «Ожидает подписи»</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.9</div>
-  <div class="step-body"><p>Переход к подписанию МЧД. Как только статус документа в реестре изменится на «Ожидает подписи», кликните по соответствующей строке, чтобы открыть детали. В карточке МЧД найдите блок «Действия с МЧД» и нажмите кнопку «Подписать МЧД».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Кнопка «Подписать МЧД»</div></div></div>
-</div>
-<div class="alert alert-warn">⚠️ Необходимо подписать каждую из трёх МЧД по отдельности!</div>
-<div class="substep-card">
-  <div class="substep-num">3.10</div>
-  <div class="step-body"><p>Вам может потребоваться подтверждение доступа для сайта. Необходимо дать согласие на действие программы. Нажмите «Да».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Подтверждение доступа</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.11</div>
-  <div class="step-body"><p>Выберите сертификат своей КЭП, чтобы перейти к подписанию, нажмите кнопку «Продолжить».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Выбор сертификата для подписания</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.12</div>
-  <div class="step-body"><p>Регистрация МЧД. Как только статус документа в реестре изменится на «Готова к регистрации», кликните по соответствующей строке, чтобы открыть детали. В карточке МЧД найдите блок «Действия с МЧД» и нажмите кнопку «Зарегистрировать МЧД».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Кнопка «Зарегистрировать МЧД»</div></div></div>
-</div>
-<div class="alert alert-warn">⚠️ Необходимо подписать каждую из трёх МЧД по отдельности!</div>
-<div class="substep-card">
-  <div class="substep-num">3.13</div>
-  <div class="step-body"><p>Убедитесь, что у всех доверенностей статус «Отправлена на регистрацию».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Статус «Отправлена на регистрацию»</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">3.14</div>
-  <div class="step-body"><p>Успешное завершение регистрации. Периодически обновляйте страницу со списком МЧД. Как только в колонке «Статус обработки» появится итоговое «Готово», процесс выпуска машиночитаемой доверенности считается полностью завершённым. Документ действителен и готов к использованию в работе!</p>
-  <div class="step-image"><div class="img-placeholder">📷 Статус «Готово»</div></div></div>
-</div>
-<div class="alert alert-success">✅ Документ действителен и готов к использованию в работе!</div>
-
-<div class="step-card">
-  <div class="step-num">4</div>
-  <div class="step-body"><p>Сообщаем Маше о новом грузоотправителе для настройки дополнительных прав. Указываем название ООО или ИП.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Сообщение о новом грузоотправителе</div></div></div>
-</div>
-
-<div class="step-card">
-  <div class="step-num">5</div>
-  <div class="step-body"><p>Перезайдите в личный кабинет для того, чтобы обновить права пользователя.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Перезаход в ЛК</div></div></div>
-</div>
-<div class="alert alert-warn">⚠️ Без перезахода в личный кабинет новые права не применятся!</div>
-
-<div class="step-card">
-  <div class="step-num">6</div>
-  <div class="step-body"><p>Добавление контрагентов. Когда права настроены, в ЛК грузоотправителя на сайте sanador.ru необходимо добавить контрагентов, с которыми будет работать данный грузоотправитель.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Добавление контрагентов</div></div></div>
-</div>
-
-<div class="substep-card">
-  <div class="substep-num">6.1</div>
-  <div class="step-body"><p>Перейдите в раздел Справочники → «Контрагенты ЭПД» в левом боковом меню личного кабинета.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Справочники → Контрагенты ЭПД</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">6.2</div>
-  <div class="step-body"><p>На открывшейся странице нажмите кнопку «Добавить контрагента».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Кнопка «Добавить контрагента»</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">6.3</div>
-  <div class="step-body"><p>В появившемся окне выберите вкладку «Создать нового». Укажите ИНН (если ИП) или ИНН и КПП (если ООО). Наименование, ОГРН и адрес заполнятся автоматически. При необходимости отметьте галочки «Грузополучатель» и «Нужен номер ТТН». Нажмите «Создать и добавить».</p>
-  <div class="step-image"><div class="img-placeholder">📷 Окно «Создать нового» контрагента</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">6.4</div>
-  <div class="step-body"><p>После добавления контрагента воспользуйтесь поиском и найдите его карточку в общем списке.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Поиск контрагента в списке</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">6.4.1</div>
-  <div class="step-body"><p>Если контрагент не появился в поиске, снова нажмите кнопку «Добавить контрагента». В появившемся окне выберите вкладку «Выбрать из справочника» — найдите контрагента по названию или ИНН и нажмите «Добавить». После этого контрагент появится в поиске, и вы сможете найти его карточку в общем списке.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Вкладка «Выбрать из справочника»</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">6.6</div>
-  <div class="step-body"><p>В карточке контрагента выберите необходимый идентификатор ЭПД из выпадающего списка. Если найдено несколько идентификаторов — выберите нужный.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Выбор идентификатора ЭПД</div></div></div>
-</div>
-<div class="substep-card">
-  <div class="substep-num">6.7</div>
-  <div class="step-body"><p>Повторите шаги 6.2–6.6 для каждого контрагента. Когда все участники добавлены и выбраны идентификаторы — переходите к созданию ЭТрН.</p>
-  <div class="step-image"><div class="img-placeholder">📷 Все контрагенты добавлены</div></div></div>
-</div>
-<div class="alert alert-success">✅ После добавления всех контрагентов и выбора идентификаторов ЭПД регистрация грузоотправителя полностью завершена!</div>
-
-</main>
 <script>
-function toggleSidebar(){
-  var s=document.getElementById('sidebar');
-  var t=document.getElementById('toggle');
-  s.classList.toggle('closed');
-  t.classList.toggle('shifted');
-}
+document.querySelectorAll('.sidebar-left a').forEach(function(a){
+  a.addEventListener('click', function(){
+    if(window.innerWidth <= 900){
+      document.querySelector('.sidebar-left').classList.remove('show');
+    }
+  });
+});
+
 function toggleDocs(header){
   var body=header.nextElementSibling;
   var icon=header.querySelector('.docs-icon');
@@ -364,18 +578,18 @@ function toggleDocs(header){
 function switchTab(btn){
   var tabs=btn.parentElement;
   var contents=tabs.parentElement.querySelectorAll('.tab-content');
-  tabs.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  tabs.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
   btn.classList.add('active');
   var idx=Array.from(tabs.querySelectorAll('.tab-btn')).indexOf(btn);
-  contents.forEach((c,i)=>c.classList.toggle('active',i===idx));
+  contents.forEach(function(c,i){c.classList.toggle('active',i===idx)});
 }
 function copyList(btn){
   var list=btn.previousElementSibling;
-  var text=Array.from(list.querySelectorAll('li')).map(li=>li.textContent).join('\n');
+  var text=Array.from(list.querySelectorAll('li')).map(function(li){return li.textContent}).join('\n');
   navigator.clipboard.writeText(text);
   btn.textContent='✅ Скопировано!';
-  setTimeout(()=>btn.textContent='📋 Копировать список',2000);
+  setTimeout(function(){btn.textContent='📋 Копировать список'},2000);
 }
 </script>
-</body>
-</html>
+
+</body></html>
