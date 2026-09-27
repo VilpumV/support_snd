@@ -18,7 +18,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
 .search-box button{padding:7px 14px;background:#c9a96e;color:#2d2a26;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px}
 
 /* LAYOUT */
-.layout{display:flex;gap:0;min-height:calc(100vh - 56px)}
+.layout{display:flex;gap:0;min-height:calc(100vh - 56px);margin-right:300px}
 
 /* LEFT SIDEBAR — Инструкции */
 .sidebar-left{width:320px;background:#2d2a26;color:#e8e0d4;padding:0;flex-shrink:0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
@@ -80,7 +80,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
 .center .top-buttons a:hover{background:#b8964e}
 
 /* RIGHT SIDEBAR */
-.sidebar-right{width:300px;flex-shrink:0;padding:20px 18px;background:#f5f2ed;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-right{width:300px;flex-shrink:0;padding:20px 18px;background:#f5f2ed;position:fixed;right:0;top:56px;height:calc(100vh - 56px);overflow-y:auto;z-index:50}
 .sidebar-right .info-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .sidebar-right .partner-badge{background:#c9a96e;color:#2d2a26;padding:14px;border-radius:10px;text-align:center;font-weight:600;margin-bottom:14px;font-size:15px}
 .sidebar-right h3{font-size:16px;color:#2d2a26;margin-bottom:10px;border-bottom:2px solid #c9a96e;padding-bottom:6px}
@@ -98,7 +98,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
 
 /* RESPONSIVE */
 @media(max-width:1200px){
-  .sidebar-right{display:none}
+  .sidebar-right{width:240px}
+  .layout{margin-right:240px}
 }
 @media(max-width:900px){
   .sidebar-left{position:fixed;left:-320px;top:56px;z-index:200;transition:left .25s;width:300px;box-shadow:2px 0 10px rgba(0,0,0,.2)}
@@ -106,6 +107,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
   .burger{display:block}
   .center{padding:20px 16px}
   .search-box input{width:140px}
+  .sidebar-right{width:180px;padding:14px 10px}
+  .layout{margin-right:180px}
 }
 </style>
 </head>
