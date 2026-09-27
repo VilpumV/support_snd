@@ -1,137 +1,421 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Важные ссылки — Санадор</title>
-<style>
-:root{--sb-bg:#2d2a26;--sb-tx:#d4cfc9;--sb-ac:#e89537;--sb-hv:#3a3633;--ac:#e89537;--ac-hv:#d4822f;--bg:#f5f3f0;--cd:#fff;--tx:#2d2a26;--tx-l:#6b6660;--bd:#e0ddd8;--w-bg:#fef9e7;--w-bd:#f5c842;--i-bg:#e8f4fd;--i-bd:#4a9fde;--ok-bg:#eafaf1;--ok-bd:#27ae60;--e-bg:#fdedec;--e-bd:#e74c3c}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
-.sidebar{position:fixed;left:0;top:0;width:260px;height:100vh;background:var(--sb-bg);color:var(--sb-tx);padding:20px 0;overflow-y:auto;z-index:1000;transition:transform .3s}
-.sb-h{padding:0 20px 16px;border-bottom:1px solid #3a3633}
-.sb-h h2{font-size:18px;color:var(--sb-ac);margin-bottom:4px}
-.sb-h p{font-size:12px;color:#8a8580}
-.ns{padding:12px 0 4px}
-.ns-t{padding:0 20px;font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:#8a8580;margin-bottom:6px}
-.ni{display:flex;align-items:center;gap:8px;padding:10px 20px;color:var(--sb-tx);text-decoration:none;font-size:14px;transition:background .2s;border-left:3px solid transparent}
-.ni:hover{background:var(--sb-hv);color:#fff}
-.ni.act{background:var(--sb-hv);color:var(--sb-ac);border-left-color:var(--sb-ac)}
-.burger{display:none;position:fixed;top:15px;left:15px;z-index:1001;background:var(--sb-bg);color:var(--sb-ac);border:none;border-radius:8px;padding:10px 14px;font-size:20px;cursor:pointer}
-.main{margin-left:260px;padding:30px 40px;transition:margin .3s}
-.card{background:var(--cd);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.card h2{font-size:24px;margin-bottom:16px}
-.card h3{font-size:18px;margin:20px 0 10px}
-.card h4{font-size:16px;margin:14px 0 8px}
-.card p{margin-bottom:10px}
-.step{display:flex;gap:12px;background:var(--cd);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);align-items:flex-start}
-.step-c{flex:1;min-width:0}
-.step-img{flex:0 0 700px;height:500px;background:#e8e6e3;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#8a8580;font-size:16px;overflow:hidden}
-.step-img img{width:100%;height:100%;object-fit:cover;border-radius:8px}
-.sn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--ac);color:#fff;border-radius:50%;font-size:15px;font-weight:700;margin-bottom:8px}
-.ssn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#f5b56b;color:#fff;border-radius:50%;font-size:13px;font-weight:700;margin-bottom:6px}
-.alert{border-radius:8px;padding:14px 16px;margin:12px 0;border-left:4px solid;font-size:14px}
-.a-w{background:var(--w-bg);border-color:var(--w-bd)}
-.a-i{background:var(--i-bg);border-color:var(--i-bd)}
-.a-ok{background:var(--ok-bg);border-color:var(--ok-bd)}
-.a-e{background:var(--e-bg);border-color:var(--e-bd)}
-.dw{margin:20px 0}
-.dh{background:var(--cd);border-radius:10px;padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06);font-size:16px;font-weight:600}
-.dh:hover{background:#faf9f7}
-.da{transition:transform .3s}
-.dw.open .da{transform:rotate(180deg)}
-.db{max-height:0;overflow:hidden;transition:max-height .4s}
-.dw.open .db{max-height:4000px}
-.tabs{display:flex;gap:8px;margin:16px 0}
-.tb{padding:8px 20px;border:2px solid var(--bd);background:#fff;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;color:var(--tx);transition:all .2s}
-.tb.act{border-color:var(--ac);background:var(--ac);color:#fff}
-.tp{display:none}.tp.act{display:block}
-.cbtn{background:var(--ac);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:14px;margin:8px 0;transition:background .2s}
-.cbtn:hover{background:var(--ac-hv)}
-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--bd)}
-th{background:#f0eee9;font-weight:600}
-.bb{display:inline-flex;align-items:center;gap:6px;color:var(--tx-l);text-decoration:none;font-size:14px;margin-bottom:16px;padding:8px 12px;border-radius:6px;background:var(--cd);transition:background .2s}
-.bb:hover{background:#ebe9e5}
-.lc{display:flex;align-items:center;gap:12px;background:var(--cd);border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.li{font-size:28px;flex-shrink:0}
-.lin{flex:1}.ln{font-weight:600;font-size:15px}.lu{font-size:12px;color:var(--tx-l);word-break:break-all}
-.faq{background:var(--cd);border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.faq-q{padding:16px 20px;cursor:pointer;font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center}
-.faq-q:hover{background:#faf9f7}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s}
-.faq.open .faq-a{max-height:500px;padding:0 20px 16px}
-.ni-it{padding:12px 0;border-bottom:1px solid var(--bd)}
-.ni-dt{font-size:12px;color:var(--ac);font-weight:600}
-.oc{background:var(--cd);border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.nb{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--ac);color:#fff;border-radius:50%;font-size:14px;font-weight:700;margin-right:8px;flex-shrink:0}
-.is{margin:12px 0}
-.ih{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--cd);border-radius:10px;cursor:pointer;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.ih:hover{background:#faf9f7}
-.il{display:none;padding:8px 0 8px 20px}
-.is.open .il{display:block}
-.ii{display:flex;align-items:center;padding:8px 12px;font-size:14px}
-.isub{display:flex;align-items:center;padding:6px 12px 6px 40px;font-size:13px;color:var(--tx-l)}
-.tn{margin:8px 0}
-.tq{font-weight:600;padding:10px 14px;background:#f0eee9;border-radius:8px;cursor:pointer;border-left:4px solid var(--ac);margin-bottom:8px}
-.tq:hover{background:#ebe9e5}
-.tc{display:none;padding:8px 0 8px 20px}
-.tn.open .tc{display:block}
-.ta{padding:10px 14px;background:var(--i-bg);border-radius:8px;margin:6px 0 6px 20px;border-left:3px solid var(--i-bd);font-size:14px}
-.tb2{padding:10px 14px;background:#f8f7f5;border-radius:8px;margin:6px 0 6px 20px;border-left:3px solid var(--ac);font-weight:600}
-.search-box{display:flex;gap:8px;margin-bottom:20px}
-.sinput{flex:1;padding:10px 14px;border:2px solid var(--bd);border-radius:8px;font-size:14px}
-.sinput:focus{outline:none;border-color:var(--ac)}
-.counter{display:inline-flex;align-items:center;gap:6px;background:var(--ac);color:#fff;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600}
-.phone-h{display:none;margin-top:12px;padding:12px;background:var(--ok-bg);border-radius:8px;border-left:4px solid var(--ok-bd)}
-@media(max-width:1280px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0;padding:20px 16px}.burger{display:block}.step{flex-direction:column}.step-img{flex:none;width:100%;height:300px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Санадор Техподдержка - Важные ссылки</title>
+    <style>
+        /* --- СБРОС СТИЛЕЙ --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f2ed; /* Цвет фона как на главной */
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* --- ЛЕВАЯ ПАНЕЛЬ (САЙДБАР) --- */
+        .sidebar-left {
+            width: 260px; /* Фиксированная ширина */
+            background-color: #1a1a1a;
+            color: #fff;
+            flex-shrink: 0;
+            padding-top: 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #333;
+            z-index: 100;
+        }
+
+        .logo-block {
+            padding: 0 20px 20px;
+        }
+        .logo-text {
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+        .logo-text span { color: #d4a017; } /* Золотой цвет */
+        .logo-subtitle {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .nav-section h3 {
+            padding: 0 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            margin: 20px 0 10px;
+        }
+
+        .nav-list { list-style: none; }
+        .nav-item a {
+            display: block;
+            padding: 12px 20px;
+            color: #ccc;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .nav-item a:hover, .nav-item a.active {
+            background-color: #2a2a2a;
+            color: #fff;
+            border-left: 3px solid #d4a017;
+        }
+
+        /* --- ЦЕНТРАЛЬНАЯ ОБЛАСТЬ --- */
+        .main-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0; /* Важно: предотвращает расширение контента */
+        }
+
+        /* --- ШАПКА (HEADER) --- */
+        .header-top {
+            background-color: #1a1a1a;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid #333;
+            flex-shrink: 0;
+        }
+
+        .search-wrapper {
+            margin-left: auto; /* Выравнивание поиска вправо */
+            width: 350px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #444;
+            background-color: #2a2a2a;
+            color: #fff;
+            outline: none;
+        }
+        .search-input::placeholder { color: #888; }
+
+        /* --- КОНТЕНТ --- */
+        .content-wrapper {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        h1.page-title {
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+        }
+
+        /* --- ПРЕДУПРЕЖДЕНИЕ (АЛЯРМ) --- */
+        .alert-box {
+            background-color: #fff8f0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin-bottom: 30px;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* --- БЛОК ССЫЛОК (КАРТОЧКИ) --- */
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        @media (min-width: 768px) {
+            .links-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .link-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: box-shadow 0.2s;
+        }
+        .link-card:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+
+        .link-info h4 { font-size: 14px; color: #1a1a1a; margin-bottom: 5px; }
+        .link-url {
+            font-size: 12px;
+            color: #666;
+            word-break: break-all;
+            margin-top: 5px;
+        }
+
+        .btn-copy {
+            background-color: #1a1a1a;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        .btn-copy:hover { background-color: #333; }
+
+        /* --- ПРАВАЯ КОЛОНКА (SIDEBAR RIGHT) --- */
+        .sidebar-right {
+            width: 320px;
+            background-color: #fff;
+            padding: 20px;
+            border-left: 1px solid #ddd;
+            flex-shrink: 0;
+            height: fit-content;
+            position: sticky;
+            top: 80px; /* Отступ от шапки */
+        }
+
+        .widget { margin-bottom: 30px; }
+        .widget h4 {
+            font-size: 14px;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Виджет Новости */
+        .news-item { margin-bottom: 15px; }
+        .news-date {
+            display: block;
+            color: #d4a017;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+        .news-text { font-size: 13px; color: #555; }
+
+        /* Виджет Офисы */
+        .office-card { margin-bottom: 15px; }
+        .office-name {
+            color: #d4a017;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .office-details { font-size: 12px; color: #555; line-height: 1.4; }
+
+        /* Виджет Телефоны */
+        .phone-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #1a1a1a;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+        .phone-btn:hover { background-color: #333; }
+
+        /* Адаптив */
+        @media (max-width: 1024px) {
+            .sidebar-left { display: none; } /* На планшетах можно скрыть левое меню */
+            .sidebar-right { display: none; }
+            .search-wrapper { width: 200px; }
+        }
+    </style>
 </head>
 <body>
-<button class="burger" onclick="toggleSidebar()">☰</button>
-<nav class="sidebar" id="sidebar">
-<div class="sb-h"><h2>🚚 Санадор Техподдержка</h2><p>Инструкции и скрипты</p></div><div class="ns"><div class="ns-t">Навигация</div><a href="podderzhka.html" class="ni">🏠 Главная</a></div><div class="ns"><div class="ns-t">Инструкции</div><a href="osnovy-epd.html" class="ni">📖 Основы ЭПД</a><a href="cryptopro.html" class="ni">🔒 КриптоПро</a><a href="perevozchik.html" class="ni">🚚 Регистрация: Перевозчик</a><a href="gruzootpravitel.html" class="ni">📦 Регистрация: Грузоотправитель</a><a href="poluchatel.html" class="ni">📦 Регистрация: Получатель</a></div><div class="ns"><div class="ns-t">Справочники</div><a href="vazhnye-ssylki.html" class="ni act">🔗 Важные ссылки</a><a href="baza-voprosov.html" class="ni">❓ База вопросов</a></div>
-</nav>
-<main class="main">
 
-<a href="podderzhka.html" class="bb">← Назад</a>
-<div class="card">
-<h2>🔗 Важные ссылки</h2>
+    <!-- ЛЕВАЯ ПАНЕЛЬ -->
+    <aside class="sidebar-left">
+        <div class="logo-block">
+            <div class="logo-text">Санадор<span>Техподдержка</span></div>
+            <div class="logo-subtitle">Инструкции и скрипты</div>
+        </div>
 
-<h3>📱 Санадор Z</h3>
-<div class="lc"><div class="li">🏪</div><div class="lin"><div class="ln">RuStore</div><div class="lu">https://www.rustore.ru/catalog/app/com.ninedev.applicationz</div></div><button class="cbtn" data-copy="https://www.rustore.ru/catalog/app/com.ninedev.applicationz">Копировать</button></div>
-<div class="lc"><div class="li">🍎</div><div class="lin"><div class="ln">App Store</div><div class="lu">https://apps.apple.com/ru/app/санадор-z/id1447874811</div></div><button class="cbtn" data-copy="https://apps.apple.com/ru/app/санадор-z/id1447874811">Копировать</button></div>
-<div class="lc"><div class="li">▶️</div><div class="lin"><div class="ln">Google Play</div><div class="lu">https://play.google.com/store/apps/details?id=com.ninedev.applicationz</div></div><button class="cbtn" data-copy="https://play.google.com/store/apps/details?id=com.ninedev.applicationz">Копировать</button></div>
+        <nav class="nav-section">
+            <h3>Навигация</h3>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#">Главная</a></li>
+                <li class="nav-item"><a href="#">Все об ЭТРН</a></li>
+                <li class="nav-item"><a href="#" class="active">Санадор Z</a></li>
+                <li class="nav-item"><a href="#">TMC (1C)</a></li>
+                <li class="nav-item"><a href="#">Санадор Агро (в будущем...)</a></li>
+            </ul>
+        </nav>
 
-<h3>📦 Санадор ЭПД</h3>
-<div class="lc"><div class="li">🏪</div><div class="lin"><div class="ln">RuStore</div><div class="lu">https://www.rustore.ru/catalog/app/ru.sanador.epd</div></div><button class="cbtn" data-copy="https://www.rustore.ru/catalog/app/ru.sanador.epd">Копировать</button></div>
-<div class="lc"><div class="li">▶️</div><div class="lin"><div class="ln">Google Play</div><div class="lu">https://play.google.com/store/apps/details?id=ru.sanador.epd</div></div><button class="cbtn" data-copy="https://play.google.com/store/apps/details?id=ru.sanador.epd">Копировать</button></div>
-<div class="alert a-w">⚠️ Для iPhone нет отдельного приложения ЭПД — пользуемся приложением Санадор Z.</div>
+        <nav class="nav-section">
+            <h3>Справочники</h3>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="active">🔗 Важные ссылки</a></li>
+                <li class="nav-item"><a href="#">База вопросов</a></li>
+            </ul>
+        </nav>
+    </aside>
 
-<h3>🔐 Для ЭТРН</h3>
-<div class="lc"><div class="li">🖱</div><div class="lin"><div class="ln">AnyDesk</div><div class="lu">https://anydesk.com/ru</div></div><button class="cbtn" data-copy="https://anydesk.com/ru">Копировать</button></div>
-<div class="lc"><div class="li">📋</div><div class="lin"><div class="ln">КриптоПро (с сайта налоговой + плагин)</div><div class="lu">https://cryptopro.ru/fns?clckid=44d98b25#download</div></div><button class="cbtn" data-copy="https://cryptopro.ru/fns?clckid=44d98b25#download">Копировать</button></div>
-<div class="lc"><div class="li">🔌</div><div class="lin"><div class="ln">Плагин КриптоПро (отдельно)</div><div class="lu">https://cryptopro.ru/products/cades/plugin</div></div><button class="cbtn" data-copy="https://cryptopro.ru/products/cades/plugin">Копировать</button></div>
-<div class="lc"><div class="li">🧩</div><div class="lin"><div class="ln">Расширение для Opera</div><div class="lu">https://addons.opera.com/ru/extensions/details/cryptopro-extension-for-cades-browser-plug-in/</div></div><button class="cbtn" data-copy="https://addons.opera.com/ru/extensions/details/cryptopro-extension-for-cades-browser-plug-in/">Копировать</button></div>
-<div class="lc"><div class="li">🙂</div><div class="lin"><div class="ln">Драйвера для Рутокена</div><div class="lu">https://www.rutoken.ru/support/download/windows/</div></div><button class="cbtn" data-copy="https://www.rutoken.ru/support/download/windows/">Копировать</button></div>
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
+    <div class="main-container">
+        
+        <!-- ШАПКА -->
+        <header class="header-top">
+            <div class="logo-text" style="margin-right: 20px;">Санадор<span>Техподдержка</span></div>
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Найти...">
+            </div>
+        </header>
 
-<h3>🛠 Рабочие сервисы</h3>
-<div class="lc"><div class="li">🖥</div><div class="lin"><div class="ln">Админка</div><div class="lu">https://nova-test.sanador.ru/dashboards/main</div></div><button class="cbtn" data-copy="https://nova-test.sanador.ru/dashboards/main">Копировать</button></div>
-<div class="lc"><div class="li">📊</div><div class="lin"><div class="ln">CRM</div><div class="lu">https://sndamo.amocrm.ru/dashboard/?sel=all&period=day&pipeline_id=11234002</div></div><button class="cbtn" data-copy="https://sndamo.amocrm.ru/dashboard/?sel=all&period=day&pipeline_id=11234002">Копировать</button></div>
-<div class="lc"><div class="li">🌐</div><div class="lin"><div class="ln">Сайт Санадор</div><div class="lu">https://sanador.ru/it</div></div><button class="cbtn" data-copy="https://sanador.ru/it">Копировать</button></div>
-</div>
+        <!-- КОНТЕНТ -->
+        <main class="content-wrapper">
+            <h1 class="page-title">Важные ссылки</h1>
 
-</main>
-<script>
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-document.querySelectorAll('.dh').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
-document.querySelectorAll('.tabs').forEach(t=>{t.querySelectorAll('.tb').forEach(b=>b.addEventListener('click',()=>{const w=b.closest('.dw')||t.parentElement;w.querySelectorAll('.tb').forEach(x=>x.classList.remove('act'));w.querySelectorAll('.tp').forEach(x=>x.classList.remove('act'));b.classList.add('act');const p=w.querySelector('#'+b.dataset.tab);if(p)p.classList.add('act')}))});
-document.querySelectorAll('.cbtn').forEach(b=>b.addEventListener('click',()=>{const t=b.dataset.copy||'';if(!t&&b.previousElementSibling)t=b.previousElementSibling.textContent;navigator.clipboard.writeText(t).then(()=>{const o=b.textContent;b.textContent='✓ Скопировано!';setTimeout(()=>b.textContent=o,1500)})}));
-document.querySelectorAll('.faq-q').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
-document.querySelectorAll('.tq').forEach(q=>q.addEventListener('click',()=>q.closest('.tn').classList.toggle('open')));
-document.querySelectorAll('.ih').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
-document.querySelectorAll('.is .ih').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
-const pb=document.querySelector('.phone-btn');if(pb)pb.addEventListener('click',()=>{const h=document.querySelector('.phone-h');if(h)h.style.display=h.style.display==='block'?'none':'block'});
-</script>
+            <!-- Блок предупреждения -->
+            <div class="alert-box">
+                Для отдельного приложения ЭПД — пользуемся приложением Санадор Z.
+            </div>
+
+            <!-- Секция: Санадор Z -->
+            <section class="links-section">
+                <h3 style="margin-bottom: 15px; color: #1a1a1a;">📱 Санадор Z</h3>
+                <div class="links-grid">
+                    <div class="link-card">
+                        <div class="link-info">
+                            <h4>RuStore (Android)</h4>
+                            <div class="link-url">rustore.ru/catalog/app/com.ninedev.applicationz</div>
+                        </div>
+                        <button class="btn-copy" onclick="copyLink(this)">📋 Копировать</button>
+                    </div>
+                    <div class="link-card">
+                        <div class="link-info">
+                            <h4>App Store (iOS)</h4>
+                            <div class="link-url">apps.apple.com/ru/app/санадор-z/id1447874811</div>
+                        </div>
+                        <button class="btn-copy" onclick="copyLink(this)">📋 Копировать</button>
+                    </div>
+                    <div class="link-card">
+                        <div class="link-info">
+                            <h4>Google Play (Android)</h4>
+                            <div class="link-url">play.google.com/store/apps/details?id=com.ninedev.applicationz</div>
+                        </div>
+                        <button class="btn-copy" onclick="copyLink(this)">📋 Копировать</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Секция: ЭПД -->
+            <section class="links-section" style="margin-top: 30px;">
+                <h3 style="margin-bottom: 15px; color: #1a1a1a;">📦 Санадор ЭПД</h3>
+                <div class="links-grid">
+                    <div class="link-card">
+                        <div class="link-info">
+                            <h4>RuStore (Android)</h4>
+                            <div class="link-url">rustore.ru/catalog/app/ru.sanador.epd</div>
+                        </div>
+                        <button class="btn-copy" onclick="copyLink(this)">📋 Копировать</button>
+                    </div>
+                    <div class="link-card">
+                        <div class="link-info">
+                            <h4>Google Play (Android)</h4>
+                            <div class="link-url">play.google.com/store/apps/details?id=ru.sanador.epd</div>
+                        </div>
+                        <button class="btn-copy" onclick="copyLink(this)">📋 Копировать</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Секция: Для ЭТРН -->
+            <section class="links-section" style="margin-top: 30px;">
+                <h3 style="margin-bottom: 15px; color: #1a1a1a;">🔐 Для ЭТРН</h3>
+                <div class="links-grid">
+                     <div class="link-card">
+                        <div class="link-info">
+                            <h4>Портал ЭТРН</h4>
+                            <div class="link-url">etrns.sanador.ru/portal</div>
+                        </div>
+                        <button class="btn-copy" onclick="copyLink(this)">📋 Копировать</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ПРАВАЯ КОЛОНКА -->
+    <aside class="sidebar-right">
+        <div class="widget">
+            <h4>📰 Последние новости</h4>
+            <div class="news-item">
+                <span class="news-date">20 сентября 2026</span>
+                Приглашения через админку — Теперь операторы сами могут принимать приглашения на дружбу через админку.
+            </div>
+            <div class="news-item">
+                <span class="news-date">18 сентября 2026</span>
+                Автонабор в CRM — теперь доступна функция автонабора номеров прямо из CRM.
+            </div>
+            <div class="news-item">
+                <span class="news-date">24 сентября 2026</span>
+                Мяу — МЯУ МЯУ.
+            </div>
+            <div style="font-size: 12px; color: #888; margin-top: 10px;">Подключено: 500</div>
+        </div>
+
+        <div class="widget">
+            <h4>🏢 Наши офисы</h4>
+            <div class="office-card">
+                <div class="office-name">Краснодар</div>
+                <div class="office-details">Российская улица, 630, 2 этаж</div>
+            </div>
+            <div class="office-card">
+                <div class="office-name">Славянск-на-Кубани</div>
+                <div class="office-details">
+                    Улица Дружбы Народов, 63<br>
+                    Сотрудники: Галина, Юлия<br>
+                    Обед: 13-14
+                </div>
+            </div>
+            <div class="office-card">
+                <div class="office-name">Станица Тбилисская</div>
+                <div class="office-details">
+                    Элеваторная улица, 7<br>
+                    Сотрудники: Алина, Наталия<br>
+                    Обед: 14-15
+                </div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <h4>📞 Контактные телефоны</h4>
+            <p style="font-size: 13px; color: #555; margin-bottom: 10px;">Телефоны доступны только для сотрудников.</p>
+            <button class="phone-btn" onclick="alert('Номера скрыты для безопасности')">Показать номера</button>
+        </div>
+    </aside>
+
+    <script>
+        // Функция копирования ссылки
+        function copyLink(btn) {
+            const parent = btn.parentElement;
+            const urlElement = parent.querySelector('.link-url');
+            const textToCopy = urlElement.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = '✅ Скопировано!';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
