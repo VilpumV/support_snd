@@ -5,278 +5,464 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Главная — Санадор Техподдержка</title>
 <style>
-:root{--sb-bg:#2d2a26;--sb-tx:#d4cfc9;--sb-ac:#e89537;--sb-hv:#3a3633;--ac:#e89537;--ac-hv:#d4822f;--bg:#f5f3f0;--cd:#fff;--tx:#2d2a26;--tx-l:#6b6660;--bd:#e0ddd8;--w-bg:#fef9e7;--w-bd:#f5c842;--i-bg:#e8f4fd;--i-bd:#4a9fde;--ok-bg:#eafaf1;--ok-bd:#27ae60;--e-bg:#fdedec;--e-bd:#e74c3c}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
-.sidebar{position:fixed;left:0;top:0;width:260px;height:100vh;background:var(--sb-bg);color:var(--sb-tx);padding:20px 0;overflow-y:auto;z-index:1000;transition:transform .3s}
-.sb-h{padding:0 20px 16px;border-bottom:1px solid #3a3633}
-.sb-h h2{font-size:18px;color:var(--sb-ac);margin-bottom:4px}
-.sb-h p{font-size:12px;color:#8a8580}
-.ns{padding:12px 0 4px}
-.ns-t{padding:0 20px;font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:#8a8580;margin-bottom:6px}
-.ni{display:flex;align-items:center;gap:8px;padding:10px 20px;color:var(--sb-tx);text-decoration:none;font-size:14px;transition:background .2s;border-left:3px solid transparent}
-.ni:hover{background:var(--sb-hv);color:#fff}
-.ni.act{background:var(--sb-hv);color:var(--sb-ac);border-left-color:var(--sb-ac)}
-.burger{display:none;position:fixed;top:15px;left:15px;z-index:1001;background:var(--sb-bg);color:var(--sb-ac);border:none;border-radius:8px;padding:10px 14px;font-size:20px;cursor:pointer}
-.main{margin-left:260px;padding:30px 40px;transition:margin .3s}
-.card{background:var(--cd);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.card h2{font-size:24px;margin-bottom:16px}
-.card h3{font-size:18px;margin:20px 0 10px}
-.card h4{font-size:16px;margin:14px 0 8px}
-.card p{margin-bottom:10px}
-.step{display:flex;gap:12px;background:var(--cd);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);align-items:flex-start}
-.step-c{flex:1;min-width:0}
-.step-img{flex:0 0 700px;height:500px;background:#e8e6e3;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#8a8580;font-size:16px;overflow:hidden}
-.step-img img{width:100%;height:100%;object-fit:cover;border-radius:8px}
-.sn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--ac);color:#fff;border-radius:50%;font-size:15px;font-weight:700;margin-bottom:8px}
-.ssn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#f5b56b;color:#fff;border-radius:50%;font-size:13px;font-weight:700;margin-bottom:6px}
-.alert{border-radius:8px;padding:14px 16px;margin:12px 0;border-left:4px solid;font-size:14px}
-.a-w{background:var(--w-bg);border-color:var(--w-bd)}
-.a-i{background:var(--i-bg);border-color:var(--i-bd)}
-.a-ok{background:var(--ok-bg);border-color:var(--ok-bd)}
-.a-e{background:var(--e-bg);border-color:var(--e-bd)}
-.dw{margin:20px 0}
-.dh{background:var(--cd);border-radius:10px;padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06);font-size:16px;font-weight:600}
-.dh:hover{background:#faf9f7}
-.da{transition:transform .3s}
-.dw.open .da{transform:rotate(180deg)}
-.db{max-height:0;overflow:hidden;transition:max-height .4s}
-.dw.open .db{max-height:4000px}
-.tabs{display:flex;gap:8px;margin:16px 0}
-.tb{padding:8px 20px;border:2px solid var(--bd);background:#fff;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;color:var(--tx);transition:all .2s}
-.tb.act{border-color:var(--ac);background:var(--ac);color:#fff}
-.tp{display:none}.tp.act{display:block}
-.cbtn{background:var(--ac);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:14px;margin:8px 0;transition:background .2s}
-.cbtn:hover{background:var(--ac-hv)}
-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--bd)}
-th{background:#f0eee9;font-weight:600}
-.bb{display:inline-flex;align-items:center;gap:6px;color:var(--tx-l);text-decoration:none;font-size:14px;margin-bottom:16px;padding:8px 12px;border-radius:6px;background:var(--cd);transition:background .2s}
-.bb:hover{background:#ebe9e5}
-.lc{display:flex;align-items:center;gap:12px;background:var(--cd);border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.li{font-size:28px;flex-shrink:0}
-.lin{flex:1}.ln{font-weight:600;font-size:15px}.lu{font-size:12px;color:var(--tx-l);word-break:break-all}
-.faq{background:var(--cd);border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.faq-q{padding:16px 20px;cursor:pointer;font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center}
-.faq-q:hover{background:#faf9f7}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s}
-.faq.open .faq-a{max-height:500px;padding:0 20px 16px}
-.ni-it{padding:12px 0;border-bottom:1px solid var(--bd)}
-.ni-dt{font-size:12px;color:var(--ac);font-weight:600}
-.oc{background:var(--cd);border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.nb{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--ac);color:#fff;border-radius:50%;font-size:14px;font-weight:700;margin-right:8px;flex-shrink:0}
-.is{margin:12px 0}
-.ih{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--cd);border-radius:10px;cursor:pointer;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.ih:hover{background:#faf9f7}
-.il{display:none;padding:8px 0 8px 20px}
-.is.open .il{display:block}
-.ii{display:flex;align-items:center;padding:8px 12px;font-size:14px}
-.isub{display:flex;align-items:center;padding:6px 12px 6px 40px;font-size:13px;color:var(--tx-l)}
-.tn{margin:8px 0}
-.tq{font-weight:600;padding:10px 14px;background:#f0eee9;border-radius:8px;cursor:pointer;border-left:4px solid var(--ac);margin-bottom:8px}
-.tq:hover{background:#ebe9e5}
-.tc{display:none;padding:8px 0 8px 20px}
-.tn.open .tc{display:block}
-.ta{padding:10px 14px;background:var(--i-bg);border-radius:8px;margin:6px 0 6px 20px;border-left:3px solid var(--i-bd);font-size:14px}
-.tb2{padding:10px 14px;background:#f8f7f5;border-radius:8px;margin:6px 0 6px 20px;border-left:3px solid var(--ac);font-weight:600}
-.search-box{display:flex;gap:8px;margin-bottom:20px}
-.sinput{flex:1;padding:10px 14px;border:2px solid var(--bd);border-radius:8px;font-size:14px}
-.sinput:focus{outline:none;border-color:var(--ac)}
-.counter{display:inline-flex;align-items:center;gap:6px;background:var(--ac);color:#fff;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600}
-.phone-h{display:none;margin-top:12px;padding:12px;background:var(--ok-bg);border-radius:8px;border-left:4px solid var(--ok-bd)}
-@media(max-width:1280px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0;padding:20px 16px}.burger{display:block}.step{flex-direction:column}.step-img{flex:none;width:100%;height:300px}}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#faf8f5;color:#333;line-height:1.6}
+
+/* TOP BAR */
+.topbar{background:#2d2a26;color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.topbar .logo{font-size:20px;font-weight:700}
+.topbar .subtitle{font-size:13px;color:#c9a96e;margin-left:8px}
+.burger{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
+.search-box{margin-left:auto;display:flex;gap:6px}
+.search-box input{padding:7px 14px;border:none;border-radius:6px;font-size:14px;width:200px}
+.search-box button{padding:7px 14px;background:#c9a96e;color:#2d2a26;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px}
+
+/* LAYOUT */
+.layout{display:flex;gap:0;min-height:calc(100vh - 56px)}
+
+/* LEFT SIDEBAR — Инструкции */
+.sidebar-left{width:320px;background:#2d2a26;color:#e8e0d4;padding:0;flex-shrink:0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-left .nav-header{padding:16px 20px 8px;font-size:13px;text-transform:uppercase;color:#c9a96e;font-weight:700;letter-spacing:1px}
+.sidebar-left a{display:block;color:#e8e0d4;text-decoration:none;padding:9px 20px;transition:background .15s;font-size:15px;cursor:pointer}
+.sidebar-left a:hover{background:#3d3a35;color:#fff}
+.sidebar-left a.active{background:#c9a96e;color:#2d2a26;font-weight:600}
+.sidebar-left .nav-group-title{padding:14px 20px 6px;font-size:13px;text-transform:uppercase;color:#c9a96e;font-weight:700;letter-spacing:1px}
+
+/* expandable items */
+.expandable > .expand-header{display:flex;align-items:center;justify-content:space-between;padding:9px 20px;cursor:pointer;color:#e8e0d4;font-size:15px;transition:background .15s}
+.expandable > .expand-header:hover{background:#3d3a35}
+.expandable > .expand-header .arrow{transition:transform .2s;font-size:12px;color:#c9a96e}
+.expandable.open > .expand-header .arrow{transform:rotate(90deg)}
+.expand-body{display:none;padding:0 0 6px}
+.expandable.open .expand-body{display:block}
+.expand-body a{padding:7px 20px 7px 44px;font-size:14px;color:#b8b0a4}
+.expand-body a:hover{background:#3d3a35;color:#fff}
+
+/* numbered items */
+.nav-numbered{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;color:#e8e0d4;text-decoration:none;font-size:15px;transition:background .15s}
+.nav-numbered:hover{background:#3d3a35;color:#fff}
+.nav-numbered .num-badge{background:#c9a96e;color:#2d2a26;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.nav-numbered.active{background:#c9a96e;color:#2d2a26}
+.nav-numbered.active .num-badge{background:#2d2a26;color:#c9a96e}
+
+.expandable .expand-header .num-badge{background:#c9a96e;color:#2d2a26;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;margin-right:10px}
+.expandable .expand-header .title-text{flex:1}
+.expandable .expand-header .arrow{margin-left:8px}
+
+.placeholder-note{padding:7px 20px 7px 44px;font-size:13px;color:#7a756d;font-style:italic}
+
+/* CENTER */
+.center{flex:1;padding:28px 32px;max-width:760px}
+.center h1{font-size:28px;color:#2d2a26;margin-bottom:18px}
+.center h2{font-size:22px;color:#2d2a26;margin:24px 0 12px}
+.center h3{font-size:18px;color:#4a4640;margin:20px 0 8px}
+.center p{margin-bottom:12px}
+.center .quote-block{background:#fff;border-left:4px solid #c9a96e;padding:14px 18px;margin:10px 0 16px;border-radius:0 8px 8px 0;font-size:15px;color:#4a4640;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.center .info-block{background:#e8f4fd;border-left:4px solid #2196f3;padding:12px 16px;margin:10px 0;border-radius:0 6px 6px 0;font-size:14px}
+.center .warn-block{background:#fff8e1;border-left:4px solid #ffc107;padding:12px 16px;margin:10px 0;border-radius:0 6px 6px 0;font-size:14px}
+.center .success-block{background:#e8f5e9;border-left:4px solid #4caf50;padding:12px 16px;margin:10px 0;border-radius:0 6px 6px 0;font-size:14px}
+.center .danger-block{background:#ffebee;border-left:4px solid #f44336;padding:12px 16px;margin:10px 0;border-radius:0 6px 6px 0;font-size:14px}
+.center .reg-block{background:#fff;border:1px solid #e0ddd8;border-radius:10px;padding:20px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.center .reg-block h3{margin-top:0}
+.center figcaption{text-align:center;font-size:13px;color:#999;margin-top:6px}
+.center .img-placeholder{width:100%;height:320px;background:#f0ede8;border:2px dashed #ccc;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#aaa;margin:10px 0}
+
+/* decision tree */
+.decision-tree{background:#fff;border:1px solid #e0ddd8;border-radius:10px;padding:20px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.decision-node{margin:8px 0;padding-left:0}
+.decision-branch{display:flex;align-items:flex-start;gap:10px;margin:8px 0}
+.decision-label{font-weight:600;color:#2d2a26;min-width:180px;flex-shrink:0}
+.decision-arrow{color:#c9a96e;font-weight:bold;font-size:18px;flex-shrink:0}
+.decision-content{flex:1}
+
+.center .top-buttons{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.center .top-buttons a{padding:8px 18px;background:#c9a96e;color:#2d2a26;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;transition:background .15s}
+.center .top-buttons a:hover{background:#b8964e}
+
+/* RIGHT SIDEBAR */
+.sidebar-right{width:300px;flex-shrink:0;padding:20px 18px;background:#f5f2ed;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-right .info-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.sidebar-right .partner-badge{background:#c9a96e;color:#2d2a26;padding:14px;border-radius:10px;text-align:center;font-weight:600;margin-bottom:14px;font-size:15px}
+.sidebar-right h3{font-size:16px;color:#2d2a26;margin-bottom:10px;border-bottom:2px solid #c9a96e;padding-bottom:6px}
+.news-item{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f0ede8}
+.news-date{font-size:12px;color:#999;font-weight:600}
+.news-title{font-size:14px;color:#4a4640;margin-top:2px}
+.news-counter{text-align:center;font-size:13px;color:#c9a96e;font-weight:600;margin-top:6px}
+.office-item{margin-bottom:10px;font-size:14px}
+.office-item .office-name{font-weight:600;color:#2d2a26}
+.office-item .office-addr{color:#666;font-size:13px}
+.office-item .office-staff{font-size:12px;color:#999;margin-top:2px}
+.phone-note{font-size:12px;color:#999;margin-bottom:8px}
+.show-phones-btn{display:block;width:100%;padding:9px;background:#c9a96e;color:#2d2a26;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}
+.show-phones-btn:hover{background:#b8964e}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+  .sidebar-right{display:none}
+}
+@media(max-width:900px){
+  .sidebar-left{position:fixed;left:-320px;top:56px;z-index:200;transition:left .25s;width:300px;box-shadow:2px 0 10px rgba(0,0,0,.2)}
+  .sidebar-left.show{left:0}
+  .burger{display:block}
+  .center{padding:20px 16px}
+  .search-box input{width:140px}
+}
 </style>
 </head>
 <body>
-<button class="burger" onclick="toggleSidebar()">☰</button>
-<nav class="sidebar" id="sidebar">
-<div class="sb-h"><h2>🚚 Санадор Техподдержка</h2><p>Инструкции и скрипты</p></div><div class="ns"><div class="ns-t">Навигация</div><a href="podderzhka.html" class="ni act">🏠 Главная</a></div><div class="ns"><div class="ns-t">Инструкции</div><a href="osnovy-epd.html" class="ni">📖 Основы ЭПД</a><a href="cryptopro.html" class="ni">🔒 КриптоПро</a><a href="perevozchik.html" class="ni">🚚 Регистрация: Перевозчик</a><a href="gruzootpravitel.html" class="ni">📦 Регистрация: Грузоотправитель</a><a href="poluchatel.html" class="ni">📦 Регистрация: Получатель</a></div><div class="ns"><div class="ns-t">Справочники</div><a href="vazhnye-ssylki.html" class="ni">🔗 Важные ссылки</a><a href="baza-voprosov.html" class="ni">❓ База вопросов</a></div>
-</nav>
-<main class="main">
 
-<div class="card">
-<h2>Поддержка поддержит всех!!</h2>
-<p><a href="baza-voprosov.html" style="text-decoration:none;color:var(--ac);font-weight:600">📘 База вопросов</a> &nbsp; <a href="vazhnye-ssylki.html" style="text-decoration:none;color:var(--ac);font-weight:600">🔗 Важные ссылки</a></p>
-</div>
-
-<div class="card">
-<h3>Инструкции:</h3>
-
-<div class="is open">
-<div class="ih" onclick="this.parentElement.classList.toggle('open')">📋 Все об ЭТРН ›</div>
-<div class="il">
-<div class="ii"><span class="nb">1</span> Основы ЭПД (титулы, роли)</div>
-<div class="ii"><span class="nb">2</span> Инструкция по установке КриптоПро</div>
-<div class="is">
-<div class="ih"><span class="nb">3</span> Регистрация в ЭПД ›</div>
-<div class="il">
-<div class="isub">🔹 Отправитель (ООО, ИП)</div>
-<div class="isub">🔹 Перевоз (ООО, ИП)</div>
-<div class="isub">🔹 Получатель (ИП, ООО)</div>
-</div>
-</div>
-<div class="ii"><span class="nb">4</span> Админка</div>
-<div class="is">
-<div class="ih"><span class="nb">5</span> Дружба ›</div>
-<div class="il">
-<div class="isub">🔹 Добавление контрагента</div>
-<div class="isub">🔹 Дружба через админку</div>
-<div class="isub">🔹 Дружба через сайт</div>
-</div>
-</div>
-<div class="is">
-<div class="ih"><span class="nb">6</span> ЭЗЗ ›</div>
-<div class="il">
-<div class="isub">🔹 Грузоотправитель (создание)</div>
-<div class="isub">🔹 Перевозчик (подписание)</div>
-</div>
-</div>
-<div class="is">
-<div class="ih"><span class="nb">7</span> ЭТРН ›</div>
-<div class="il">
-<div class="isub">🔹 Отправитель</div>
-<div class="isub">🔹 Перевозчик</div>
-<div class="isub">🔹 Получатель</div>
-</div>
-</div>
-</div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <button class="burger" onclick="document.querySelector('.sidebar-left').classList.toggle('show')">☰</button>
+  <span class="logo">🚚 Санадор Техподдержка</span>
+  <span class="subtitle">Инструкции и скрипты</span>
+  <div class="search-box">
+    <input type="text" placeholder="Поиск...">
+    <button onclick="alert('Поиск...')">🔍 Найти</button>
+  </div>
 </div>
 
-<div class="is">
-<div class="ih" onclick="this.parentElement.classList.toggle('open')">📱 Санадор Z ›</div>
-<div class="il"><p>Пункты будут добавлены позже</p></div>
+<div class="layout">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar-left" id="sidebar">
+    <div class="nav-group-title">Навигация</div>
+    <a href="podderzhka.html" class="active">🏠 Главная</a>
+    
+    <div class="nav-group-title">📋 Все об ЭТРН ›</div>
+    
+    <a href="osnovy-epd.html" class="nav-numbered">
+      <span class="num-badge">1</span>
+      <span>Основы ЭПД (титулы, роли)</span>
+    </a>
+    
+    <a href="cryptopro.html" class="nav-numbered">
+      <span class="num-badge">2</span>
+      <span>Инструкция по установке КриптоПро</span>
+    </a>
+    
+    <!-- 3 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="num-badge">3</span>
+        <span class="title-text">Регистрация в ЭПД ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <a href="gruzootpravitel.html">🔹 Отправитель (ООО, ИП)</a>
+        <a href="perevozchik.html">🔹 Перевоз (ООО, ИП)</a>
+        <a href="poluchatel.html">🔹 Получатель (ИП, ООО)</a>
+      </div>
+    </div>
+    
+    <!-- 4 -->
+    <a href="#" class="nav-numbered">
+      <span class="num-badge">4</span>
+      <span>Админка</span>
+    </a>
+    
+    <!-- 5 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="num-badge">5</span>
+        <span class="title-text">Дружба ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <a href="#">🔹 Добавление контрагента</a>
+        <a href="#">🔹 Дружба через админку</a>
+        <a href="#">🔹 Дружба через сайт</a>
+      </div>
+    </div>
+    
+    <!-- 6 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="num-badge">6</span>
+        <span class="title-text">ЭЗЗ ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <a href="#">🔹 Грузоотправитель (создание)</a>
+        <a href="#">🔹 Перевозчик (подписание)</a>
+      </div>
+    </div>
+    
+    <!-- 7 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="num-badge">7</span>
+        <span class="title-text">ЭТРН ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <a href="#">🔹 Отправитель</a>
+        <a href="#">🔹 Перевозчик</a>
+        <a href="#">🔹 Получатель</a>
+      </div>
+    </div>
+    
+    <!-- Санадор Z — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span style="font-size:18px">📱</span>
+        <span class="title-text">Санадор Z ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <!-- ТМС(1С) — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span style="font-size:18px">🚚</span>
+        <span class="title-text">ТМС(1С) ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <!-- Санадор Агро — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+        <span style="font-size:18px">🌾</span>
+        <span class="title-text">Санадор Агро (в будущем...) ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <div class="nav-group-title" style="margin-top:14px">Справочники</div>
+    <a href="vazhnye-ssylki.html">🔗 Важные ссылки</a>
+    <a href="baza-voprosov.html">❓ База вопросов</a>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+    <h1>Поддержка поддержит всех!!</h1>
+    
+    <div class="top-buttons">
+      <a href="baza-voprosov.html">📘 База вопросов</a>
+      <a href="vazhnye-ssylki.html">🔗 Важные ссылки</a>
+    </div>
+
+    <h2>Инструкции:</h2>
+    <p style="font-size:16px;color:#4a4640;margin-bottom:18px">📋 Все об ЭТРН ›</p>
+    
+    <!-- РЕГИСТРАЦИЯ -->
+    <h2>РЕГИСТРАЦИЯ</h2>
+    
+    <div class="reg-block">
+      <h3>Для бронирования рейсов (Санадо Z)</h3>
+      <div class="quote-block">
+        «Для регистрации необходимо либо заполнить заявку в приложении Санадор Z самостоятельно, либо выслать нам пакет документов по списку. Обратите внимание: списки документов для ООО и ИП отличаются.»
+      </div>
+      <figcaption>Рис. 1. Пример формы заявки на регистрацию в САНДО Z</figcaption>
+      <div class="img-placeholder">📷 Скриншот формы заявки</div>
+    </div>
+    
+    <div class="reg-block">
+      <h3>Для получения электронных накладных</h3>
+      <div class="quote-block">
+        «Для получения электронных накладных клиенту потребуется носитель (флешка) с электронной подписью из налоговой и регистрация через сайт Санадор. Если у клиента нет компьютера, он может приехать в наш офис — мы поможем с регистрацией и сразу запросим необходимые документы.»
+      </div>
+    </div>
+
+    <!-- НЕ ПРИШЛА ЭТРН -->
+    <h2>Не пришла ЭТРН</h2>
+    <div class="decision-tree">
+      
+      <div class="decision-branch">
+        <span class="decision-label">Уточнить: точно ли это ЭТРН, а не ЭЗЗ или приглашение?</span>
+      </div>
+      <p style="font-size:14px;color:#666;margin:4px 0 10px">Уточните у клиента, какой именно документ не пришёл.</p>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">├─</span>
+        <div class="decision-content">
+          <strong>Да, точно ЭТРН</strong>
+          <div class="quote-block" style="margin:6px 0">
+            «Поняла, речь именно об ЭТрН. Давайте проверим статус документа. Уточните, пожалуйста, сколько времени прошло с момента отправки?»
+          </div>
+        </div>
+      </div>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">├─</span>
+        <div class="decision-content">
+          <strong>Нет, это другой документ</strong>
+          <div class="quote-block" style="margin:6px 0">
+            «Хорошо, значит, это не ЭТРН. Подскажите, пожалуйста, какой именно документ вы ожидаете: транспортную накладную, счёт-фактуру, УПД или что-то другое? Я подскажу, где его искать или как запросить.»
+          </div>
+        </div>
+      </div>
+      
+      <div class="decision-branch" style="margin-top:14px">
+        <span class="decision-label">Сколько времени ждали между отправкой и получением?</span>
+      </div>
+      <p style="font-size:14px;color:#666;margin:4px 0 10px">Уточните у звонящего, сколько времени прошло с момента отправки.</p>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">├─</span>
+        <div class="decision-content">
+          <strong>Менее 30 минут</strong>
+          <div class="quote-block" style="margin:6px 0">
+            «Документ мог еще не дойти. ЭТРН проходит обработку в ГИС ЭПД. Важно также проверить, завершена ли регистрация клиента в ЭПД. Рекомендую подождать еще немного.»
+          </div>
+        </div>
+      </div>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">├─</span>
+        <div class="decision-content">
+          <strong>Более 30 минут:</strong>
+          <div class="quote-block" style="margin:6px 0">
+            «Если прошло более 30 минут, стоит связаться с грузоотправителем и попросить его проверить отправку документа. Важно, чтобы отправка была произведена через оператора Калуга Астрал.»
+          </div>
+        </div>
+      </div>
+      
+      <div class="decision-branch" style="margin-top:14px">
+        <span class="decision-label">Есть ли ЭТРН в нашей системе</span>
+      </div>
+      <p style="font-size:14px;color:#666;margin:4px 0 10px">Попросите у клиента ФИО/ИНН и проверьте наличие документа в админке.</p>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">├─</span>
+        <div class="decision-content">
+          <strong>ЭТРН найдена в системе:</strong>
+          <div class="success-block">
+            «Документ есть в нашей системе. Проверьте его наличие в приложении Санадор ЭПД или Санадор Z (если у клиента iPhone). В крайнем случае, документ можно найти в личном кабинете на сайте Санадор.»
+          </div>
+        </div>
+      </div>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">├─</span>
+        <div class="decision-content">
+          <strong>ЭТРН не найдена в системе:</strong>
+          <div class="danger-block">
+            «К сожалению, в нашей системе ЭТРН не найдена. Необходимо запросить статус документа у грузоотправителя — возможно, он еще не был отправлен или отправлен с ошибкой.»
+          </div>
+        </div>
+      </div>
+      
+      <div class="decision-branch" style="margin-top:14px">
+        <span class="decision-label">На какого оператора отправил грузоотправитель?</span>
+      </div>
+      <p style="font-size:14px;color:#666;margin:4px 0 10px">Уточните у грузоотправителя, через какого оператора ЭПД он отправил ЭТРН.</p>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">├─</span>
+        <div class="decision-content">
+          <strong>Оператор совпадает с нашим:</strong>
+          <div class="info-block">
+            «Если оператор совпадает, но документа нет, запросите у грузоотправителя файл-подтверждение отправки (сам файл ЭТРН). Это поможет нам быстрее разобраться в ситуации.»
+          </div>
+        </div>
+      </div>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">├─</span>
+        <div class="decision-content">
+          <strong>Оператор НЕ совпадает:</strong>
+          <div class="warn-block">
+            «Проблема может быть в том, что документ отправлен через другого оператора ЭДО. Попросите грузоотправителя переотправить ЭТрН через корректного оператора (Калуга Астрал).»
+          </div>
+        </div>
+      </div>
+      
+      <div class="decision-branch">
+        <span class="decision-arrow">└─</span>
+        <div class="decision-content">
+          <strong>Грузоотправитель не знает / не отвечает:</strong>
+          <div class="quote-block" style="margin:6px 0">
+            «Если грузоотправитель не может предоставить информацию, мы можем создать заявку на ручную проверку маршрута документа. Сообщите, если хотите оформить такую заявку.»
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar-right">
+    <div class="partner-badge">
+      Справочная:<br>Официальный партнёр «Калуга Астрал»
+    </div>
+    
+    <div class="info-card">
+      <h3>📢 Последние новости</h3>
+      
+      <div class="news-item">
+        <div class="news-date">20 сентября 2026</div>
+        <div class="news-title">Приглашения через админку — Теперь операторы сами могут принимать приглашения на дружбку через админку.</div>
+      </div>
+      
+      <div class="news-item">
+        <div class="news-date">18 сентября 2026</div>
+        <div class="news-title">Автонабор в CRM — теперь доступна функция автонабора номеров прямо из CRM.</div>
+      </div>
+      
+      <div class="news-item" style="border-bottom:none">
+        <div class="news-date">24 сентября 2026</div>
+        <div class="news-title">Мяу — МЯУ МЯУ.</div>
+      </div>
+      
+      <div class="news-counter">Подключено: 500</div>
+    </div>
+    
+    <div class="info-card">
+      <h3>🏢 Наши офисы</h3>
+      
+      <div class="office-item">
+        <div class="office-name">📍 Краснодар</div>
+        <div class="office-addr">Российская улица, 630, 2 этаж</div>
+      </div>
+      
+      <div class="office-item">
+        <div class="office-name">📍 Славянск-на-Кубани</div>
+        <div class="office-addr">Улица Дружбы Народов, 63</div>
+        <div class="office-staff">Сотрудники: Галина, Юлия</div>
+        <div class="office-staff">Обед: 13-14</div>
+      </div>
+      
+      <div class="office-item">
+        <div class="office-name">📍 Станица Тбилисская</div>
+        <div class="office-addr">Элеваторная улица, 7</div>
+        <div class="office-staff">Сотрудники: Алина, Наталия</div>
+        <div class="office-staff">Обед: 14-15</div>
+      </div>
+    </div>
+    
+    <div class="info-card">
+      <h3>📞 Контактные телефоны</h3>
+      <div class="phone-note">Телефоны доступны только для сотрудников.</div>
+      <button class="show-phones-btn" onclick="var n=document.getElementById('phone-list');if(n.style.display==='none'){n.style.display='block';this.textContent='🔒 Скрыть номера';}else{n.style.display='none';this.textContent='🔓 Показать номера';}">🔓 Показать номера</button>
+      <div id="phone-list" style="display:none;margin-top:10px;font-size:14px;color:#666">
+        Номера телефонов будут добавлены позже.
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<div class="is">
-<div class="ih" onclick="this.parentElement.classList.toggle('open')">🚚 ТМС(1С) ›</div>
-<div class="il"><p>Пункты будут добавлены позже</p></div>
-</div>
-
-<div class="is">
-<div class="ih" onclick="this.parentElement.classList.toggle('open')">🌾 Санадор Агро (в будущем...) ›</div>
-<div class="il"><p>Пункты будут добавлены позже</p></div>
-</div>
-</div>
-
-<div class="card">
-<h3>РЕГИСТРАЦИЯ</h3>
-<h4>Для бронирования рейсов (Санадо Z)</h4>
-<p>«Для регистрации необходимо либо заполнить заявку в приложении Санадор Z самостоятельно, либо выслать нам пакет документов по списку. Обратите внимание: списки документов для ООО и ИП отличаются.»</p>
-<p style="font-size:13px;color:var(--tx-l)">Рис. 1. Пример формы заявки на регистрацию в САНДО Z</p>
-<div class="step-img" style="height:300px;margin-top:12px">📷 Скриншот формы заявки</div>
-
-<h4>Для получения электронных накладных</h4>
-<p>«Для получения электронных накладных клиенту потребуется носитель (флешка) с электронной подписью из налоговой и регистрация через сайт Санадор. Если у клиента нет компьютера, он может приехать в наш офис — мы поможем с регистрацией и сразу запросим необходимые документы.»</p>
-</div>
-
-<div class="card">
-<h3>Не пришла ЭТРН</h3>
-<p><strong>Уточнить:</strong> точно ли это ЭТРН, а не ЭЗЗ или приглашение?</p>
-<p>Уточните у клиента, какой именно документ не пришёл.</p>
-
-<div class="tn">
-<div class="tq">Да, точно ЭТРН</div>
-<div class="tc">
-<div class="ta">«Поняла, речь именно об ЭТрН. Давайте проверим статус документа. Уточните, пожалуйста, сколько времени прошло с момента отправки?»</div>
-</div>
-</div>
-<div class="tn">
-<div class="tq">Нет, это другой документ</div>
-<div class="tc">
-<div class="ta">«Хорошо, значит, это не ЭТРН. Подскажите, пожалуйста, какой именно документ вы ожидаете: транспортную накладную, счёт-фактуру, УПД или что-то другое? Я подскажу, где его искать или как запросить.»</div>
-</div>
-</div>
-
-<div class="tn">
-<div class="tq">Сколько времени ждали между отправкой и получением?</div>
-<div class="tc">
-<p>Уточните у звонящего, сколько времени прошло с момента отправки.</p>
-<div class="ta">«Документ мог еще не дойти. ЭТРН проходит обработку в ГИС ЭПД. Важно также проверить, завершена ли регистрация клиента в ЭПД. Рекомендую подождать еще немного.»</p>
-<p style="font-weight:600;margin-top:8px">Менее 30 минут — текст выше</p>
-<p style="font-weight:600">Более 30 минут:</p>
-<div class="ta">«Если прошло более 30 минут, стоит связаться с грузоотправителем и попросить его проверить отправку документа. Важно, чтобы отправка была произведена через оператора Калуга Астрал.»</div>
-</div>
-</div>
-
-<div class="tn">
-<div class="tq">Есть ли ЭТРН в нашей системе</div>
-<div class="tc">
-<p>Попросите у клиента ФИО/ИНН и проверьте наличие документа в админке.</p>
-<p style="font-weight:600">ЭТРН найдена в системе:</p>
-<div class="ta">«Документ есть в нашей системе. Проверьте его наличие в приложении Санадор ЭПД или Санадор Z (если у клиента iPhone). В крайнем случае, документ можно найти в личном кабинете на сайте Санадор.»</div>
-<p style="font-weight:600">ЭТРН не найдена в системе:</p>
-<div class="ta">«К сожалению, в нашей системе ЭТРН не найдена. Необходимо запросить статус документа у грузоотправителя — возможно, он еще не был отправлен или отправлен с ошибкой.»</div>
-</div>
-</div>
-
-<div class="tn">
-<div class="tq">На какого оператора отправил грузоотправитель?</div>
-<div class="tc">
-<p>Уточните у грузоотправителя, через какого оператора ЭПД он отправил ЭТРН.</p>
-<p style="font-weight:600">Оператор совпадает с нашим:</p>
-<div class="ta">«Если оператор совпадает, но документа нет, запросите у грузоотправителя файл-подтверждение отправки (сам файл ЭТРН). Это поможет нам быстрее разобраться в ситуации.»</div>
-<p style="font-weight:600">Оператор НЕ совпадает:</p>
-<div class="ta">«Проблема может быть в том, что документ отправлен через другого оператора ЭДО. Попросите грузоотправителя переотправить ЭТрН через корректного оператора (Калуга Астрал).»</div>
-<p style="font-weight:600">Грузоотправитель не знает / не отвечает:</p>
-<div class="ta">«Если грузоотправитель не может предоставить информацию, мы можем создать заявку на ручную проверку маршрута документа. Сообщите, если хотите оформить такую заявку.»</div>
-</div>
-</div>
-
-<div style="display:flex;gap:8px;margin-top:16px">
-<button class="cbtn">🔍 Найти</button>
-<button class="cbtn" style="background:var(--sb-bg)">🔒 Закрыть все вкладки</button>
-</div>
-</div>
-
-<div class="card">
-<h3>Справочная:</h3>
-<p>Официальный партнёр «Калуга Астрал»</p>
-</div>
-
-<div class="card">
-<h3>📢 Последние новости</h3>
-<div class="ni-it">
-<div class="ni-dt">20 сентября 2026</div>
-<p>Приглашения через админку — Теперь операторы сами могут принимать приглашения на дружбку через админку.</p>
-</div>
-<div class="ni-it">
-<div class="ni-dt">18 сентября 2026</div>
-<p>Автонабор в CRM — теперь доступна функция автонабора номеров прямо из CRM.</p>
-</div>
-<div class="ni-it">
-<div class="ni-dt">24 сентября 2026</div>
-<p>Мяу — МЯУ МЯУ.</p>
-</div>
-<p style="margin-top:12px"><span class="counter">Подключено: 500</span></p>
-</div>
-
-<div class="card">
-<h3>🏢 Наши офисы</h3>
-<div class="oc"><p style="font-weight:600">📍 Краснодар</p><p>Российская улица, 630, 2 этаж</p></div>
-<div class="oc"><p style="font-weight:600">📍 Славянск-на-Кубани</p><p>Улица Дружбы Народов, 63</p><p>Сотрудники: Галина, Юлия</p><p>Обед: 13-14</p></div>
-<div class="oc"><p style="font-weight:600">📍 Станица Тбилисская</p><p>Элеваторная улица, 7</p><p>Сотрудники: Алина, Наталия</p><p>Обед: 14-15</p></div>
-</div>
-
-<div class="card">
-<h3>📞 Контактные телефоны</h3>
-<p>Телефоны доступны только для сотрудников.</p>
-<button class="cbtn phone-btn">🔓 Показать номера</button>
-<div class="phone-h">
-<p>Номера телефонов будут добавлены позже.</p>
-</div>
-</div>
-
-</main>
 <script>
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-document.querySelectorAll('.dh').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
-document.querySelectorAll('.tabs').forEach(t=>{t.querySelectorAll('.tb').forEach(b=>b.addEventListener('click',()=>{const w=b.closest('.dw')||t.parentElement;w.querySelectorAll('.tb').forEach(x=>x.classList.remove('act'));w.querySelectorAll('.tp').forEach(x=>x.classList.remove('act'));b.classList.add('act');const p=w.querySelector('#'+b.dataset.tab);if(p)p.classList.add('act')}))});
-document.querySelectorAll('.cbtn').forEach(b=>b.addEventListener('click',()=>{const t=b.dataset.copy||'';if(!t&&b.previousElementSibling)t=b.previousElementSibling.textContent;navigator.clipboard.writeText(t).then(()=>{const o=b.textContent;b.textContent='✓ Скопировано!';setTimeout(()=>b.textContent=o,1500)})}));
-document.querySelectorAll('.faq-q').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
-document.querySelectorAll('.tq').forEach(q=>q.addEventListener('click',()=>q.closest('.tn').classList.toggle('open')));
-document.querySelectorAll('.ih').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
-document.querySelectorAll('.is .ih').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
-const pb=document.querySelector('.phone-btn');if(pb)pb.addEventListener('click',()=>{const h=document.querySelector('.phone-h');if(h)h.style.display=h.style.display==='block'?'none':'block'});
+// Close sidebar on mobile when clicking a link
+document.querySelectorAll('.sidebar-left a').forEach(function(a){
+  a.addEventListener('click', function(){
+    if(window.innerWidth <= 900){
+      document.querySelector('.sidebar-left').classList.remove('show');
+    }
+  });
+});
 </script>
+
 </body>
 </html>
