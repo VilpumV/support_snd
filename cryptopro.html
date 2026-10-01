@@ -666,6 +666,61 @@ document.querySelectorAll('.sidebar-left a').forEach(function(a){
       height: auto;
       display: block;
     }
+    .step-images {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+.card {
+  width: 180px;
+  min-width: 0; /* предотвращает переполнение flex-контейнера */
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.install-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: #2196f3;
+  border-radius: 4px;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+.install-btn:hover {
+  background: #1976d2;
+}
+
+.step-legend {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #555;
+}
+
+.step-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
   </style>
 </head>
 
