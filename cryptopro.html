@@ -159,6 +159,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
   .sidebar-right{display:none}
   .layout{padding-right:0}
 }
+
+/* STEP (alt layout for problems section) */
+.step{display:flex;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.step .step-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px}
+.step .step-num.danger{background:var(--error-border)}
+.step .step-num.accent{background:var(--accent-dark)}
+.step .step-body{flex:1;min-width:0}
+.step .step-text{margin-bottom:8px;font-size:15px;line-height:1.6}
+.step-img{max-width:100%;height:auto;display:block;border-radius:8px;margin-top:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.substep{padding:12px 0;border-top:1px solid var(--border)}
+.substep:first-of-type{border-top:none;padding-top:4px}
+.substep .step-text{margin-bottom:8px}
+.substep .step-img{max-width:100%;height:auto;display:block;border-radius:8px;margin-top:8px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.note{padding:10px 14px;border-radius:8px;margin:8px 0;font-size:14px;font-weight:500}
+.note-red{background:var(--error-bg);border-left:4px solid var(--error-border)}
+.note-blue{background:var(--info-bg);border-left:4px solid var(--info-border)}
+.img-placeholder{width:100%;min-height:200px;background:#f0ede8;border:2px dashed #ccc;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#aaa;margin-top:10px}
+/* Three-card layout for step 14 */
+.step-images{display:flex;gap:16px;flex-wrap:wrap;justify-content:flex-start;margin-top:12px;margin-bottom:12px}
+.step-images .card{width:200px;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;background:#fafafa;box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.step-images .card img{width:100%;height:auto;display:block;border-radius:4px}
+.step-legend{display:flex;gap:16px;font-size:13px;color:var(--text-muted);margin-top:8px;flex-wrap:wrap}
+.step-legend span{display:flex;align-items:center;gap:6px}
 </style>
 </head>
 <body>
@@ -352,81 +375,81 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
     <div class="step-card">
       <div class="step-num">1</div>
       <div class="step-body"><p>Заходим на наш сайт и авторизуемся (или регистрируемся).</p>
-      <div class="step-image"><img src="img/page_00.png" alt="Авторизация на сайте"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_00.png" alt="Авторизация на сайте"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">2</div>
       <div class="step-body"><p>После авторизации нажимаем на вкладку «ЭПД» → «Регистрация».</p>
-      <div class="step-image"><img src="img/page_01.png" alt="Вкладка ЭПД → Регистрация"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_01.png" alt="Вкладка ЭПД → Регистрация"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">3</div>
       <div class="step-body"><p>Если КриптоПро нет на компьютере — появится красное окошко.</p>
-      <div class="step-image"><img src="img/page_02.png" alt="Красное окошко — КриптоПро не найден"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_02.png" alt="Красное окошко — КриптоПро не найден"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">4</div>
       <div class="step-body"><p>Чтобы скачать приложение КриптоПро и плагин для браузера, нужно нажать на «ссылке» на этом окошке (это гиперссылка).</p>
-      <div class="step-image"><img src="img/page_03.png" alt="Ссылка для скачивания КриптоПро"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_03.png" alt="Ссылка для скачивания КриптоПро"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">5</div>
       <div class="step-body"><p>В полученном окне необходимо заполнить форму: Ф.И.О, Email, Организация (не обязательно).</p>
-      <div class="step-image"><img src="img/page_04.png" alt="Форма для заполнения"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_04.png" alt="Форма для заполнения"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">6</div>
       <div class="step-body"><p>После заполнения формы выбираем операционную систему (Windows, macOS, Linux DEB/RPM). Обязательно ставим галочки на согласие об обработке перс. данных и условия лицензионного соглашения. Нажимаем «Скачать».</p>
-    <div class="step-image"></div></div>
-      </div>
+      <div class="step-image"></div></div>
+    </div>
 
     <div class="step-card">
       <div class="step-num">7</div>
       <div class="step-body"><p>В разделе «Загрузки» (правый угол) появится нужный файл — открываем его.</p>
-      <div class="step-image"><img src="img/page_05.png" alt="Раздел «Загрузки»"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_05.png" alt="Раздел «Загрузки»"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">8</div>
       <div class="step-body"><p>Начинаем установку. В момент установки потребуется перемещать указатель мыши для генерации случайной последовательности.</p>
       <p>Если КриптоПро уже стоял на компьютере, это окно не появится.</p>
-      <div class="step-image"><img src="img/page_06.png" alt="Установка — генерация случайной последовательности"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_06.png" alt="Установка — генерация случайной последовательности"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">9</div>
       <div class="step-body"><p>Когда полоска генерации полностью заполнится — ждём, пока установка завершится.</p>
-      <div class="step-image"><img src="img/page_07.png" alt="Полоска генерации заполнена"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_07.png" alt="Полоска генерации заполнена"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">10</div>
       <div class="step-body"><p>Дальше начнётся установка плагина.</p>
-      <div class="step-image"><img src="img/page_08.png" alt="Установка плагина"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_08.png" alt="Установка плагина"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">11</div>
       <div class="step-body"><p>После установки плагина высветится окно завершения установки. Если у вас нет Яндекс Браузера — нажмите на галочку для его установки и нажмите «ОК»</p>
       <p>Компьютер НЕ перезагружаем!</p>
-      <div class="step-image"><img src="img/page_09.png" alt="Окно завершения установки"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_09.png" alt="Окно завершения установки"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">12</div>
       <div class="step-body"><p>Установка расширения. Заходим в раздел «Расширения».</p>
-      <div class="step-image"><img src="img/page_10.png" alt="Раздел «Расширения»"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_10.png" alt="Раздел «Расширения»"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">13</div>
       <div class="step-body"><p>Листаем до раздела "Катвлог Opera".</p>
-      <div class="step-image"><img src="img/page_11.png" alt="Раздел «Каталог Opera»"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_11.png" alt="Раздел «Каталог Opera»"></div></div>
     </div>
 
     <!-- ИСПРАВЛЕННЫЙ БЛОК ШАГА 14 ПОД МАКЕТ -->
@@ -438,17 +461,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
         <div class="step-images">
           <!-- Карточка 1: Выключено -->
           <div class="card">
-            <img src="img/page_12.2.png" alt="Выключено" loading="lazy">
+            <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_12.2.png" alt="Выключено" loading="lazy">
           </div>
 
           <!-- Карточка 2: Включено -->
           <div class="card">
-            <img src="img/page_12.1.png" alt="Включено" loading="lazy">
+            <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_12.1.png" alt="Включено" loading="lazy">
           </div>
 
           <!-- Карточка 3: Не установлено (кнопка) -->
           <div class="card">
-            <img src="img/page_12.3.png" alt="Установить" loading="lazy">
+            <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_12.3.png" alt="Установить" loading="lazy">
           </div>
         </div>
 
@@ -464,31 +487,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
     <div class="step-card">
       <div class="step-num">15</div>
       <div class="step-body"><p>Нажимая «Установить», попадаем на сайт-магазин, жмём «Добавить в Яндекс Браузер».</p>
-      <div class="step-image"><img src="img/page_13.png" alt="«Добавить в Яндекс Браузер»"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_13.png" alt="«Добавить в Яндекс Браузер»"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">16</div>
       <div class="step-body"><p>Разрешаем.</p>
-      <div class="step-image"><img src="img/page_14.png" alt="Разрешение установки"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_14.png" alt="Разрешение установки"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">17</div>
       <div class="step-body"><p>Возвращаемся на сайт Санадор и обновляем страницу.</p>
-      <div class="step-image"><img src="img/page_001.png" alt="Обновление страницы"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_001.png" alt="Обновление страницы"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">18</div>
       <div class="step-body"><p>Разрешаем.</p>
-      <div class="step-image"><img src="img/page_15.png" alt="Разрешение"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_15.png" alt="Разрешение"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">19</div>
       <div class="step-body"><p>Если всё сделано правильно, сертификат будет виден при выборе в разделе «Регистрация ЭПД».</p>
-      <div class="step-image"><img src="img/page_16.png" alt="Сертификат виден"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_16.png" alt="Сертификат виден"></div></div>
     </div>
 
     <div class="alert alert-success">✅ Установка завершена!</div>
@@ -501,15 +524,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
         <div class="step-text">В первую очередь всегда просим запустить <strong>диагностику КриптоПро</strong>. Есть 3 способа:</div>
         <div class="substep">
           <div class="step-text"><strong>Способ 1:</strong> Если красное окошко ещё активно — нажимаем «Страница диагностики КриптоПро».</div>
-          <img src="img/page_18.png" class="step-img" alt="Способ 1">
+          <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_18.png" class="step-img" alt="Способ 1">
         </div>
         <div class="substep">
           <div class="step-text"><strong>Способ 2:</strong> На моменте выбора сертификата — нажимаем «Страница диагностики КриптоПро».</div>
-          <img src="img/page_19.png" class="step-img" alt="Способ 2">
+          <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_19.png" class="step-img" alt="Способ 2">
         </div>
         <div class="substep">
           <div class="step-text"><strong>Способ 3:</strong> Самый трудный, может быть не универсальный.</div>
-          <img src="img/page_20.png" class="step-img" alt="Способ 3">
+          <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_20.png" class="step-img" alt="Способ 3">
         </div>
       </div>
     </div>
@@ -517,25 +540,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
     <div class="step-card">
       <div class="step-num">2</div>
       <div class="step-body"><p>Попав на страницу диагностики, смотрим, какие пункты загорятся зелёным, а какие красным.</p>
-      <div class="step-image"><img src="img/page_21.png" alt="Страница диагностики — зелёные и красные пункты"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_21.png" alt="Страница диагностики — зелёные и красные пункты"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">3</div>
       <div class="step-body"><p>Если красным загорелось расширение — нажимаем «Загрузить», попадаем на страницу установки, нажимаем «Добавить в Яндекс Браузер».</p>
-      <div class="step-image"><img src="img/page_22.png" alt="Красное расширение — «Загрузить»"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_22.png" alt="Красное расширение — «Загрузить»"></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">4</div>
       <div class="step-body"><p>Если красным загорелся пункт с плагином — появится кнопка «Скачать». После нажатия пойдёт скачивание, приложение нужно запустить и дождаться конца установки.</p>
-      <div class="step-image"><div class="img-placeholder">»</div></div></div>
+      <div class="step-image"><div class="img-placeholder">📷 Скриншот</div></div></div>
     </div>
 
     <div class="step-card">
       <div class="step-num">5</div>
       <div class="step-body"><p>Если красным загорелся пункт с КриптоПро — проверяем, реально ли он установлен, и открываем для настройки. В разделе «Пуск» или «Поиск» находим приложение «КриптоПро CSP».</p>
-      <div class="step-image"><img src="img/page_23.png" alt="Красное расширение — «Загрузить»"></div></div>
+      <div class="step-image"><img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_23.png" alt="Красное расширение — «Загрузить»"></div></div>
     </div>
 
     <div class="step">
@@ -543,7 +566,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
       <div class="step-body">
         <div class="step-text">Запускаем приложение!</div>
         <div class="note note-red">⚠️ ВАЖНО! Запустить нужно ОТ ИМЕНИ АДМИНИСТРАТОРА (нажимаем на кнопочку)!</div>
-        <img src="img/page_24.png" class="step-img" alt="Запуск от администратора">
+        <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_24.png" class="step-img" alt="Запуск от администратора">
       </div>
     </div>
 
@@ -552,7 +575,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
       <div class="step-body">
         <div class="step-text">Чтобы носитель подписи был виден, нужно <strong>настроить считыватели</strong>. Действуем по схеме:</div>
         <div class="note note-blue">«Оборудование» → «Настроить считыватели» → «Все съёмные диски» → «ОК»</div>
-         <img src="img/page_26.png" class="step-img" alt="Запуск от администратора">
+         <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_26.png" class="step-img" alt="Запуск от администратора">
       </div>
     </div>
 
@@ -566,7 +589,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
       <div class="step-num accent">9</div>
       <div class="step-body">
        <div class="step-text">Если все 4 пункта горят <strong style="color:var(--accent)">зелёным</strong>, но подпись не видна — обновляем страницу на сайте Санадор. Если не помогло, в списке «Выберите сертификат» выбираем нужный сертификат и нажимаем «Подписать» (галочки не ставим).</div>
-        <img src="img/page_27.png" class="step-img">
+        <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_27.png" class="step-img">
       </div>
     </div>
 
@@ -580,7 +603,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
       <div class="step-num danger">11</div>
       <div class="step-body">
         <div class="step-text"><strong>Запрашивает пароль</strong> — это нормально при использовании сертификата. Нужно ввести пароль, который был задан при получении подписи в налоговой.Самые распространённые 888888888, 12345678 или 87654321</div>
-     <img src="img/page_28.png" class="step-img">
+     <img src="./Инструкция по установке КриптоПро — Санадор Техподдержка_files/page_28.png" class="step-img">
       </div>
 
   </div>
@@ -672,142 +695,11 @@ document.querySelectorAll('.sidebar-left a').forEach(function(a){
 });
 </script>
 
-<head>
-
-  <style>
-    .step-image {
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .step-image img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-    .step-images {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-bottom: 16px;
-}
-
-.card {
-  width: 180px;
-  min-width: 0; /* предотвращает переполнение flex-контейнера */
-  padding: 8px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background: #fafafa;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
-}
-
-.install-btn {
-  display: block;
-  width: 100%;
-  padding: 12px 0;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  background: #2196f3;
-  border-radius: 4px;
-  font-weight: 600;
-  box-sizing: border-box;
-}
-
-.install-btn:hover {
-  background: #1976d2;
-}
-
-.step-legend {
-  display: flex;
-  gap: 12px;
-  font-size: 13px;
-  color: #555;
-}
-
-.step-legend span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-    .states-container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background: #f5f5f5;
-  border-radius: 8px;
-}
-
-.state-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 15px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.toggle {
-  width: 50px;
-  height: 28px;
-  background: #e0e0e0;
-  border-radius: 14px;
-  position: relative;
-  transition: background 0.3s;
-}
-
-.toggle.active {
-  background: #4caf50;
-}
-
-.thumb {
-  width: 22px;
-  height: 22px;
-  background: #fff;
-  border-radius: 50%;
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  transition: transform 0.3s;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-}
-
-.toggle.active .thumb {
-  transform: translateX(24px);
-}
-
-.icon-placeholder {
-  width: 40px;
-  height: 40px;
-  background: #f0f0f0;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888;
-  font-size: 20px;
-}
-
-.state-label {
-  font-size: 13px;
-  color: #333;
-  text-align: center;
-}
 
 
-  </style>
-</head>
 
 
-</body></html>
+
+
+
+</div></body></html>
