@@ -73,6 +73,35 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
 .docs-icon{transition:transform .3s;font-size:14px}
 .docs-icon.open{transform:rotate(180deg)}
 
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab-btn{padding:8px 20px;border:2px solid #e0ddd8;background:#fff;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s}
+.tab-btn.active{background:#c9a96e;color:#2d2a26;border-color:#c9a96e}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.docs-subtitle{font-weight:600;margin:16px 0 8px;font-size:14px;color:#666;text-transform:uppercase;letter-spacing:.5px}
+.docs-list{list-style:none;padding:0}
+.docs-list li{padding:6px 0 6px 24px;position:relative;font-size:15px}
+.docs-list li:before{content:'\25B8';position:absolute;left:0;color:#c9a96e}
+.copy-btn{margin-top:12px;padding:8px 16px;background:#c9a96e;color:#2d2a26;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
+.copy-btn:hover{background:#b8964e}
+
+/* Steps */
+.step-card{display:flex;gap:16px;background:#fff;border:1px solid #e0ddd8;border-radius:10px;padding:20px;margin-bottom:12px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.step-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#c9a96e;color:#2d2a26;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
+.step-body{flex:1;min-width:0}
+.step-body p{margin-bottom:8px;font-size:15px}
+.substep-card{display:flex;gap:12px;margin:8px 0 8px 60px;padding:14px 16px;background:#faf9f6;border:1px solid #e0ddd8;border-radius:10px}
+.substep-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#6b6258;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.substep-card .step-body{flex:1}
+.substep-card .step-body p{font-size:14px}
+.step-image{margin-top:12px}
+
+/* Alerts */
+.alert{padding:14px 18px;border-radius:8px;margin:12px 0;font-size:15px;border-left:4px solid}
+.alert-warn{background:#fff8e1;border-color:#ffc107}
+.alert-info{background:#e8f4fd;border-color:#2196f3}
+.alert-error{background:#ffebee;border-color:#f44336}
+.alert-success{background:#e8f5e9;border-color:#4caf50}
 /* decision tree */
 .decision-tree{background:#fff;border:1px solid #e0ddd8;border-radius:10px;padding:20px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.05)}
 .decision-node{margin:8px 0;padding-left:0}
