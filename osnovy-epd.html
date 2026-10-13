@@ -67,6 +67,122 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
 .center figcaption{text-align:center;font-size:13px;color:#999;margin-top:6px}
 .center .img-placeholder{width:100%;height:320px;background:#f0ede8;border:2px dashed #ccc;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#aaa;margin:10px 0}
 
+  /* SECTION CARDS — разделение контента */
+.section-card{background:#fff;border:1px solid #e8e3db;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.section-title{font-size:18px;font-weight:700;color:#2d2a26;margin-bottom:16px;display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:2px solid #e8e3db}
+.section-title .icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.icon-blue{background:#e8f0fe}
+.icon-green{background:#e8f8ee}
+.icon-purple{background:#f0e8fe}
+.icon-orange{background:#fff3e0}
+.icon-red{background:#fde8e8}
+.icon-teal{background:#e0f5f5}
+.icon-gold{background:#f5ecd9}
+
+.intro-text{font-size:15px;line-height:1.6;color:#4a4640;margin-bottom:12px}
+.subheading{font-weight:700;color:#2d2a26;font-size:16px;margin:16px 0 8px}
+
+/* numbered benefits list */
+.benefits-list{list-style:none;counter-reset:b-counter;padding:0;margin:0}
+.benefits-list li{counter-increment:b-counter;position:relative;padding:10px 0 10px 40px;font-size:14px;line-height:1.5;color:#4a4640;border-bottom:1px dashed #e8e3db}
+.benefits-list li:last-child{border-bottom:none}
+.benefits-list li::before{content:counter(b-counter);position:absolute;left:0;top:8px;width:26px;height:26px;background:#c9a96e;color:#2d2a26;border-radius:50%;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+/* doc cards */
+.doc-card{background:#faf8f5;border:1px solid #e8e3db;border-radius:10px;padding:16px;margin-bottom:10px;transition:all .15s}
+.doc-card:hover{border-color:#c9a96e;box-shadow:0 2px 8px rgba(201,169,110,.1)}
+.doc-card .doc-name{font-weight:700;color:#2d2a26;font-size:15px;margin-bottom:4px}
+.doc-card .doc-desc{font-size:14px;color:#4a4640;line-height:1.5}
+
+/* participant cards */
+.participant-card{background:#faf8f5;border:1px solid #e8e3db;border-left:4px solid #c9a96e;border-radius:10px;padding:16px;margin-bottom:10px;transition:all .15s}
+.participant-card:hover{box-shadow:0 2px 8px rgba(201,169,110,.1)}
+.participant-card .p-name{font-weight:700;color:#2d2a26;font-size:15px;margin-bottom:4px}
+.participant-card .p-desc{font-size:14px;color:#4a4640;line-height:1.5}
+.participant-card .p-sub{font-size:13px;color:#666;margin-top:6px;padding-left:16px;border-left:2px solid #e8e3db}
+
+/* info banners */
+.info-banner{border-radius:10px;padding:14px 16px;margin-top:14px;font-size:14px;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.banner-blue{background:#e8f0fe;color:#1a4d8f;border:1px solid #b8d4f5}
+.banner-green{background:#e8f5e9;color:#1a6b3a;border:1px solid #b8e8c8}
+.banner-orange{background:#fff3e0;color:#8a5a00;border:1px solid #ffe0b2}
+.banner-red{background:#fde8e8;color:#c62828;border:1px solid #f5c8c8}
+
+/* tables */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:#2d2a26;color:#fff;padding:10px 12px;text-align:left;font-weight:600;font-size:13px;border:1px solid #2d2a26}
+td{padding:10px 12px;border:1px solid #e8e3db;color:#4a4640;line-height:1.4;background:#fff}
+tr:nth-child(even) td{background:#faf8f5}
+td strong{color:#2d2a26}
+
+/* step lists */
+.step-list{list-style:none;counter-reset:s-counter;padding:0;margin:0}
+.step-list li{counter-increment:s-counter;position:relative;padding:12px 0 12px 44px;font-size:14px;line-height:1.5;color:#4a4640;border-bottom:1px dashed #e8e3db}
+.step-list li:last-child{border-bottom:none}
+.step-list li::before{content:counter(s-counter);position:absolute;left:0;top:10px;width:30px;height:30px;background:#c9a96e;color:#2d2a26;border-radius:50%;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+/* bullet lists */
+.bullet-list{padding-left:0;list-style:none;margin:8px 0}
+.bullet-list li{position:relative;padding:6px 0 6px 22px;font-size:14px;color:#4a4640;line-height:1.5}
+.bullet-list li::before{content:"•";position:absolute;left:4px;top:6px;color:#c9a96e;font-weight:700;font-size:16px}
+
+/* extra titul list */
+.extra-titul-list{list-style:none;padding:0;margin:8px 0}
+.extra-titul-list li{padding:10px 14px;margin-bottom:6px;background:#faf8f5;border:1px solid #e8e3db;border-radius:8px;font-size:14px;color:#4a4640;line-height:1.5}
+.extra-titul-list li strong{color:#2d2a26}
+
+/* fine cards */
+.fine-card{background:#faf8f5;border:1px solid #e8e3db;border-left:4px solid #e74c3c;border-radius:10px;padding:16px;margin-bottom:10px}
+.fine-card .fine-title{font-weight:700;color:#c0392b;font-size:14px;margin-bottom:8px}
+.fine-card .fine-item{font-size:13px;color:#4a4640;line-height:1.5;padding:4px 0}
+.fine-card .fine-item strong{color:#2d2a26}
+
+/* nav links bottom */
+.nav-links{display:flex;justify-content:space-between;margin-top:24px;gap:12px}
+.nav-link{padding:10px 18px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;border:1px solid #e8e3db;background:#fff}
+.nav-link:hover{border-color:#c9a96e;background:#faf8f5}
+.nav-prev{color:#2d2a26}
+.nav-next{color:#2d2a26;margin-left:auto}
+
+/* RIGHT SIDEBAR — same as main page, NOT darkened */
+.sidebar-right{width:300px;flex-shrink:0;padding:20px 18px;background:#f5f2ed;position:fixed;right:0;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-right .info-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.sidebar-right .partner-badge{background:#c9a96e;color:#2d2a26;padding:14px;border-radius:10px;text-align:center;font-weight:600;margin-bottom:14px;font-size:15px}
+.sidebar-right h3{font-size:16px;color:#2d2a26;margin-bottom:10px;border-bottom:2px solid #c9a96e;padding-bottom:6px}
+.news-item{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f0ede8}
+.news-date{font-size:12px;color:#999;font-weight:600}
+.news-title{font-size:14px;color:#4a4640;margin-top:2px}
+.news-counter{text-align:center;font-size:13px;color:#c9a96e;font-weight:600;margin-top:6px}
+.office-item{margin-bottom:10px;font-size:14px}
+.office-item .office-name{font-weight:600;color:#2d2a26}
+.office-item .office-addr{color:#666;font-size:13px}
+.office-item .office-staff{font-size:12px;color:#999;margin-top:2px}
+.phone-note{font-size:12px;color:#999;margin-bottom:8px}
+.show-phones-btn{display:block;width:100%;padding:9px;background:#c9a96e;color:#2d2a26;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}
+.show-phones-btn:hover{background:#b8964e}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+  .sidebar-right{width:240px}
+  .center{margin-right:240px}
+}
+@media(max-width:900px){
+  .sidebar-left{position:fixed;left:-320px;top:56px;z-index:200;transition:left .25s;width:300px;box-shadow:2px 0 10px rgba(0,0,0,.2)}
+  .sidebar-left.show{left:0}
+  .burger{display:block}
+  .center{padding:20px 16px;margin-right:0}
+  .sidebar-right{width:200px;padding:14px 10px}
+  .center{margin-right:200px}
+}
+@media(max-width:680px){
+  .sidebar-right{display:none}
+  .center{margin-right:0;padding:16px 12px}
+  .search-box input{width:140px}
+}
+</style>
+</head>
+<body>
+  
 /* decision tree */
 .decision-tree{background:#fff;border:1px solid #e0ddd8;border-radius:10px;padding:20px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.05)}
 .decision-node{margin:8px 0;padding-left:0}
@@ -118,6 +234,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
 .collapsible-group.open > .group-header .group-arrow{transform:rotate(90deg)}
 .collapsible-group > .group-body{display:none}
 .collapsible-group.open > .group-body{display:block}
+  
 </style>
 </head>
 <body>
