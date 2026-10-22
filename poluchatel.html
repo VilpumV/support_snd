@@ -547,7 +547,166 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-s
   <div class="step-image"><div class="img-placeholder">📷 Перезаход в ЛК</div></div></div>
 </div>
 <div class="alert alert-warn">⚠️ Без перезахода в личный кабинет новые права не применятся!</div>
+</div>
 
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar-right">
+    <div class="partner-badge">
+      Справочная:<br>Официальный партнёр «Калуга Астрал»
+    </div>
+
+    <div class="info-card">
+      <h3>📢 Последние новости</h3>
+      <div class="news-item">
+        <div class="news-date">20 сентября 2026</div>
+        <div class="news-title">Приглашения через админку — Теперь операторы сами могут принимать приглашения на дружбку через админку.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">18 сентября 2026</div>
+        <div class="news-title">Автонабор в CRM — теперь доступна функция автонабора номеров прямо из CRM.</div>
+      </div>
+      <div class="news-item" style="border-bottom:none">
+        <div class="news-date">24 сентября 2026</div>
+        <div class="news-title">Мяу — МЯУ МЯУ.</div>
+      </div>
+      <div class="news-counter">Подключено: 500</div>
+    </div>
+
+    <div class="info-card">
+      <h3>🏢 Наши офисы</h3>
+      <div class="office-item">
+        <div class="office-name">📍 Краснодар</div>
+        <div class="office-addr">Российская улица, 630, 2 этаж</div>
+      </div>
+      <div class="office-item">
+        <div class="office-name">📍 Славянск-на-Кубани</div>
+        <div class="office-addr">Улица Дружбы Народов, 63</div>
+        <div class="office-staff">Сотрудники: Галина, Юлия</div>
+        <div class="office-staff">Обед: 13-14</div>
+      </div>
+      <div class="office-item">
+        <div class="office-name">📍 Станица Тбилисская</div>
+        <div class="office-addr">Элеваторная улица, 7</div>
+        <div class="office-staff">Сотрудники: Алина, Наталия</div>
+        <div class="office-staff">Обед: 14-15</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>📞 Контактные телефоны</h3>
+      <div class="phone-note">Телефоны доступны только для сотрудников.</div>
+      <button class="show-phones-btn" onclick="var n=document.getElementById(&#39;phone-list&#39;);if(n.style.display===&#39;none&#39;){n.style.display=&#39;block&#39;;this.textContent=&#39;🔒 Скрыть номера&#39;;}else{n.style.display=&#39;none&#39;;this.textContent=&#39;🔓 Показать номера&#39;;}">🔓 Показать номера</button>
+      <div id="phone-list" style="display:none;margin-top:10px;font-size:14px;color:#666">
+        Номера телефонов будут добавлены позже.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleDocs(header){
+  var body=header.nextElementSibling;
+  var icon=header.querySelector('.docs-icon');
+  body.classList.toggle('open');
+  icon.classList.toggle('open');
+}
+function switchTab(btn){
+  var tabs=btn.parentElement;
+  var contents=tabs.parentElement.querySelectorAll('.tab-content');
+  tabs.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  var idx=Array.from(tabs.querySelectorAll('.tab-btn')).indexOf(btn);
+  contents.forEach((c,i)=>c.classList.toggle('active',i===idx));
+}
+function copyList(btn){
+  var list=btn.previousElementSibling;
+  var text=Array.from(list.querySelectorAll('li')).map(li=>li.textContent).join('\n');
+  navigator.clipboard.writeText(text);
+  btn.textContent='✅ Скопировано!';
+  setTimeout(()=>btn.textContent='📋 Копировать список',2000);
+}
+// Close sidebar on mobile when clicking a link
+document.querySelectorAll('.sidebar-left a').forEach(function(a){
+  a.addEventListener('click', function(){
+    if(window.innerWidth <= 900){
+      document.querySelector('.sidebar-left').classList.remove('show');
+    }
+  });
+});
+</script>
+<head>
+  <!-- другие стили -->
+  <style>
+    .step-image {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .step-image img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .states-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.state-item {
+  text-align: center;
+}
+.toggle {
+  width: 48px;
+  height: 28px;
+  border-radius: 14px;
+  background: #e0e0e0;
+  position: relative;
+  margin: 0 auto 10px;
+}
+.toggle.active {
+  background: #007bff;
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.toggle.active::after {
+  left: 24px;
+}
+.install-btn {
+  padding: 8px 16px;
+  color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.state-label {
+  display: block;
+  font-size: 12px;
+  color: #555;
+}
+
+  </style>
+</head>
+
+
+
+
+
+
+
+
+</div></body></html>
 </main>
 <script>
 function toggleSidebar(){
