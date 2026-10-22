@@ -7,51 +7,92 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
+  --accent:#c9a96e;
+  --accent-dark:#b8964e;
   --sidebar-bg:#2d2a26;
-  --sidebar-text:#e8e4df;
-  --sidebar-active:#d97706;
-  --sidebar-hover:#3d3833;
-  --accent:#d97706;
-  --accent-light:#fef3c7;
-  --bg:#f5f3f0;
+  --sidebar-text:#e8e0d4;
+  --bg:#faf8f5;
   --card:#ffffff;
-  --border:#e0dccd;
-  --text:#1a1a1a;
-  --text-muted:#6b6258;
-  --warn-bg:#fef3c7;
-  --warn-border:#f59e0b;
-  --info-bg:#d1fae5;
-  --info-border:#10b981;
-  --error-bg:#fee2e2;
-  --error-border:#ef4444;
-  --success-bg:#d1fae5;
-  --success-border:#10b981;
+  --border:#e0ddd8;
+  --text:#333;
+  --text-muted:#4a4640;
+  --warn-bg:#fff8e1;
+  --warn-border:#ffc107;
+  --info-bg:#e8f4fd;
+  --info-border:#2196f3;
+  --success-bg:#e8f5e9;
+  --success-border:#4caf50;
+  --error-bg:#ffebee;
+  --error-border:#f44336;
 }
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;line-height:1.6}
-.sidebar{width:280px;background:var(--sidebar-bg);color:var(--sidebar-text);position:fixed;height:100vh;overflow-y:auto;z-index:1000;transition:transform .3s}
-.sidebar.closed{transform:translateX(-100%)}
-.sidebar-toggle{position:fixed;top:16px;left:280px;z-index:1001;background:var(--accent);color:#fff;border:none;padding:10px 14px;cursor:pointer;border-radius:0 8px 8px 0;font-size:18px;transition:left .3s}
-.sidebar-toggle.shifted{left:0}
-.sidebar-header{padding:24px 20px 16px;font-size:18px;font-weight:bold;display:flex;align-items:center;gap:10px;border-bottom:1px solid #3d3833}
-.sidebar-nav{padding:12px 0}
-.sidebar-section-label{padding:8px 20px;font-size:12px;text-transform:uppercase;color:#8a8073;letter-spacing:1px;margin-top:8px}
-.sidebar-nav a{display:block;padding:10px 20px;color:var(--sidebar-text);text-decoration:none;font-size:15px;transition:background .2s;border-left:3px solid transparent}
-.sidebar-nav a:hover{background:var(--sidebar-hover)}
-.sidebar-nav a.active{background:var(--sidebar-hover);border-left-color:var(--sidebar-active);color:var(--sidebar-active)}
-.main{margin-left:280px;padding:32px 40px;width:calc(100% - 280px);max-width:1200px}
-@media(max-width:768px){
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-  .sidebar-toggle{left:0}
-  .sidebar-toggle.shifted{left:280px}
-  .main{margin-left:0;width:100%;padding:20px 16px}
-}
-.back-btn{display:inline-block;margin-bottom:20px;color:var(--text-muted);text-decoration:none;font-size:14px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+
+
+/* TOP BAR */
+.topbar{background:#2d2a26;color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.topbar .logo{font-size:20px;font-weight:700}
+.topbar .subtitle{font-size:13px;color:#c9a96e;margin-left:8px}
+.burger{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
+.search-box{margin-left:auto;display:flex;gap:6px}
+.search-box input{padding:7px 14px;border:none;border-radius:6px;font-size:14px;width:200px}
+.search-box button{padding:7px 14px;background:#c9a96e;color:#2d2a26;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px}
+
+/* LAYOUT */
+.layout{display:flex;gap:0;min-height:calc(100vh - 56px);padding-right:300px}
+
+/* LEFT SIDEBAR — Инструкции */
+.sidebar-left{width:320px;background:#2d2a26;color:#e8e0d4;padding:0;flex-shrink:0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-left .nav-header{padding:16px 20px 8px;font-size:13px;text-transform:uppercase;color:#c9a96e;font-weight:700;letter-spacing:1px}
+.sidebar-left a{display:block;color:#e8e0d4;text-decoration:none;padding:9px 20px;transition:background .15s;font-size:15px;cursor:pointer}
+.sidebar-left a:hover{background:#3d3a35;color:#fff}
+.sidebar-left a.active{background:#c9a96e;color:#2d2a26;font-weight:600}
+.sidebar-left .nav-group-title{padding:14px 20px 6px;font-size:13px;text-transform:uppercase;color:#c9a96e;font-weight:700;letter-spacing:1px}
+
+/* expandable items */
+.expandable > .expand-header{display:flex;align-items:center;justify-content:space-between;padding:9px 20px;cursor:pointer;color:#e8e0d4;font-size:15px;transition:background .15s}
+.expandable > .expand-header:hover{background:#3d3a35}
+.expandable > .expand-header .arrow{transition:transform .2s;font-size:12px;color:#c9a96e}
+.expandable.open > .expand-header .arrow{transform:rotate(90deg)}
+.expand-body{display:none;padding:0 0 6px}
+.expandable.open .expand-body{display:block}
+.expand-body a{padding:7px 20px 7px 44px;font-size:14px;color:#b8b0a4}
+.expand-body a:hover{background:#3d3a35;color:#fff}
+
+/* numbered items */
+.nav-numbered{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;color:#e8e0d4;text-decoration:none;font-size:15px;transition:background .15s}
+.nav-numbered:hover{background:#3d3a35;color:#fff}
+.nav-numbered .num-badge{background:#c9a96e;color:#2d2a26;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.nav-numbered.active{background:#c9a96e;color:#2d2a26}
+.nav-numbered.active .num-badge{background:#2d2a26;color:#c9a96e}
+
+.expandable .expand-header .num-badge{background:#c9a96e;color:#2d2a26;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;margin-right:10px}
+.expandable .expand-header .title-text{flex:1}
+.expandable .expand-header .arrow{margin-left:8px}
+
+.placeholder-note{padding:7px 20px 7px 44px;font-size:13px;color:#7a756d;font-style:italic}
+
+  /* ETRN accordion */
+.etrn-accordion > .etrn-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 6px;cursor:pointer;font-size:13px;text-transform:uppercase;color:var(--accent);font-weight:700;letter-spacing:1px;user-select:none}
+.etrn-accordion > .etrn-header:hover{color:#d4b87a}
+.etrn-accordion .etrn-arrow{transition:transform .2s;font-size:12px}
+.etrn-accordion.open .etrn-arrow{transform:rotate(90deg)}
+.etrn-body{display:none}
+.etrn-accordion.open .etrn-body{display:block}
+  
+/* CENTER */
+.center{flex:1;padding:28px 32px;max-width:760px}
+.center h1{font-size:28px;color:var(--sidebar-bg);margin-bottom:18px}
+.center h2{font-size:22px;color:var(--sidebar-bg);margin:24px 0 12px}
+.center h3{font-size:18px;color:var(--text-muted);margin:20px 0 8px}
+.center p{margin-bottom:12px}
+.center .warn-block{background:var(--warn-bg);border-left:4px solid var(--warn-border);padding:12px 16px;margin:10px 0;border-radius:0 6px 6px 0;font-size:14px}
+.center .success-block{background:var(--success-bg);border-left:4px solid var(--success-border);padding:12px 16px;margin:10px 0;border-radius:0 6px 6px 0;font-size:14px}
+.center .img-placeholder{width:100%;height:320px;background:#f0ede8;border:2px dashed #ccc;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#aaa;margin:10px 0}
+.center figcaption{text-align:center;font-size:13px;color:#999;margin-top:6px}
+
+  .back-btn{display:inline-block;margin-bottom:20px;color:var(--text-muted);text-decoration:none;font-size:14px}
 .back-btn:hover{color:var(--accent)}
-h1{font-size:28px;margin-bottom:24px;color:var(--text)}
-h2{font-size:22px;margin:28px 0 16px;color:var(--text)}
-h3{font-size:18px;margin:20px 0 12px;color:var(--text)}
-p{margin-bottom:12px;font-size:15px}
+
 /* Docs block */
 .docs-block{border:1px solid var(--border);background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
 .docs-header{padding:16px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:16px;user-select:none;background:var(--card)}
@@ -60,6 +101,7 @@ p{margin-bottom:12px;font-size:15px}
 .docs-body.open{max-height:2000px;padding:0 24px 24px}
 .docs-icon{transition:transform .3s;font-size:14px}
 .docs-icon.open{transform:rotate(180deg)}
+
 /* Tabs */
 .tabs{display:flex;gap:8px;margin-bottom:16px}
 .tab-btn{padding:8px 20px;border:2px solid var(--border);background:var(--card);border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s}
@@ -72,62 +114,268 @@ p{margin-bottom:12px;font-size:15px}
 .docs-list li:before{content:'▸';position:absolute;left:0;color:var(--accent)}
 .copy-btn{margin-top:12px;padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
 .copy-btn:hover{opacity:.9}
+
 /* Steps */
 .step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
 .step-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px}
 .step-body{flex:1;min-width:0}
 .step-body p{margin-bottom:8px;font-size:15px}
-.substep-card{display:flex;gap:12px;margin:8px 0 8px 56px;padding:14px 16px;background:#faf9f6;border:1px solid var(--border);border-radius:10px}
-.substep-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#6b6258;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px}
-.substep-card .step-body{flex:1}
-.substep-card .step-body p{font-size:14px}
-/* Images */
 .step-image{margin-top:12px}
-.img-placeholder{width:100%;max-width:600px;height:400px;background:linear-gradient(135deg,#e8e4df,#d4cfc4);border:2px dashed #b8b0a0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#8a8073;cursor:pointer}
-.img-placeholder:hover{border-color:var(--accent);color:var(--accent)}
+
 /* Alerts */
 .alert{padding:14px 18px;border-radius:10px;margin:12px 0;font-size:15px;border-left:4px solid}
 .alert-warn{background:var(--warn-bg);border-color:var(--warn-border)}
-.alert-info{background:var(--info-bg);border-color:var(--info-border)}
-.alert-error{background:var(--error-bg);border-color:var(--error-border)}
 .alert-success{background:var(--success-bg);border-color:var(--success-border)}
-/* Tables */
-.styled-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.styled-table th{background:var(--sidebar-bg);color:var(--sidebar-text);padding:12px 16px;text-align:left;font-weight:600}
-.styled-table td{padding:12px 16px;border-bottom:1px solid var(--border)}
-.styled-table tr:last-child td{border-bottom:none}
-.styled-table tr:hover td{background:#faf9f6}
-/* Content sections */
-.content-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.content-section h2{margin-top:0}
-.section-icon{font-size:24px;margin-right:8px}
-.numbered-list{padding-left:0;list-style:none;counter-reset:item}
-.numbered-list li{padding:6px 0 6px 32px;position:relative;counter-increment:item}
-.numbered-list li:before{content:counter(item);position:absolute;left:0;top:4px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold}
-.bullet-list{padding-left:0;list-style:none}
-.bullet-list li{padding:6px 0 6px 24px;position:relative}
-.bullet-list li:before{content:'▸';position:absolute;left:0;color:var(--accent)}
-.fines-block{background:#fffbeb;border:1px solid var(--warn-border);border-radius:10px;padding:16px 20px;margin:12px 0}
-.fines-block p{margin-bottom:6px}
-.step-title{font-weight:600;margin-bottom:4px}
+
+/* RIGHT SIDEBAR */
+.sidebar-right{width:300px;flex-shrink:0;padding:20px 18px;background:#f5f2ed;position:fixed;right:0;top:56px;height:calc(100vh - 56px);overflow-y:auto;z-index:50}
+.sidebar-right .info-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.sidebar-right .partner-badge{background:var(--accent);color:var(--sidebar-bg);padding:14px;border-radius:10px;text-align:center;font-weight:600;margin-bottom:14px;font-size:15px}
+.sidebar-right h3{font-size:16px;color:var(--sidebar-bg);margin-bottom:10px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+.news-item{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f0ede8}
+.news-date{font-size:12px;color:#999;font-weight:600}
+.news-title{font-size:14px;color:var(--text-muted);margin-top:2px}
+.news-counter{text-align:center;font-size:13px;color:var(--accent);font-weight:600;margin-top:6px}
+.office-item{margin-bottom:10px;font-size:14px}
+.office-item .office-name{font-weight:600;color:var(--sidebar-bg)}
+.office-item .office-addr{color:#666;font-size:13px}
+.office-item .office-staff{font-size:12px;color:#999;margin-top:2px}
+.phone-note{font-size:12px;color:#999;margin-bottom:8px}
+.show-phones-btn{display:block;width:100%;padding:9px;background:var(--accent);color:var(--sidebar-bg);border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}
+.show-phones-btn:hover{background:var(--accent-dark)}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+  .sidebar-right{width:240px}
+  .layout{padding-right:240px}
+}
+@media(max-width:900px){
+  .sidebar-left{position:fixed;left:-320px;top:56px;z-index:200;transition:left .25s;width:300px;box-shadow:2px 0 10px rgba(0,0,0,.2)}
+  .sidebar-left.show{left:0}
+  .burger{display:block}
+  .center{padding:20px 16px}
+  .search-box input{width:140px}
+  .sidebar-right{width:180px;padding:16px 10px}
+  .layout{padding-right:180px}
+}
+@media(max-width:600px){
+  .sidebar-right{display:none}
+  .layout{padding-right:0}
+}
+
+/* STEP (alt layout for problems section) */
+.step{display:flex;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.step .step-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px}
+.step .step-num.danger{background:var(--error-border)}
+.step .step-num.accent{background:var(--accent-dark)}
+.step .step-body{flex:1;min-width:0}
+.step .step-text{margin-bottom:8px;font-size:15px;line-height:1.6}
+.step-img{max-width:100%;height:auto;display:block;border-radius:8px;margin-top:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.substep{padding:12px 0;border-top:1px solid var(--border)}
+.substep:first-of-type{border-top:none;padding-top:4px}
+.substep .step-text{margin-bottom:8px}
+.substep .step-img{max-width:100%;height:auto;display:block;border-radius:8px;margin-top:8px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.note{padding:10px 14px;border-radius:8px;margin:8px 0;font-size:14px;font-weight:500}
+.note-red{background:var(--error-bg);border-left:4px solid var(--error-border)}
+.note-blue{background:var(--info-bg);border-left:4px solid var(--info-border)}
+.img-placeholder{width:100%;min-height:200px;background:#f0ede8;border:2px dashed #ccc;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#aaa;margin-top:10px}
+/* Three-card layout for step 14 */
+.step-images{display:flex;gap:16px;flex-wrap:wrap;justify-content:flex-start;margin-top:12px;margin-bottom:12px}
+.step-images .card{width:200px;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;background:#fafafa;box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.step-images .card img{width:100%;height:auto;display:block;border-radius:4px}
+.step-legend{display:flex;gap:16px;font-size:13px;color:var(--text-muted);margin-top:8px;flex-wrap:wrap}
+.step-legend span{display:flex;align-items:center;gap:6px}
+  
+/* decision tree */
+.decision-tree{background:#fff;border:1px solid #e0ddd8;border-radius:10px;padding:20px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.decision-node{margin:8px 0;padding-left:0}
+.decision-branch{display:flex;align-items:flex-start;gap:10px;margin:8px 0}
+.decision-label{font-weight:600;color:#2d2a26;min-width:180px;flex-shrink:0}
+.decision-arrow{color:#c9a96e;font-weight:bold;font-size:18px;flex-shrink:0}
+.decision-content{flex:1}
+
+.center .top-buttons{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.center .top-buttons a{padding:8px 18px;background:#c9a96e;color:#2d2a26;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;transition:background .15s}
+.center .top-buttons a:hover{background:#b8964e}
+
+/* RIGHT SIDEBAR */
+.sidebar-right{width:300px;flex-shrink:0;padding:20px 18px;background:#f5f2ed;position:fixed;right:0;top:56px;height:calc(100vh - 56px);overflow-y:auto;z-index:50}
+.sidebar-right .info-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.sidebar-right .partner-badge{background:#c9a96e;color:#2d2a26;padding:14px;border-radius:10px;text-align:center;font-weight:600;margin-bottom:14px;font-size:15px}
+.sidebar-right h3{font-size:16px;color:#2d2a26;margin-bottom:10px;border-bottom:2px solid #c9a96e;padding-bottom:6px}
+.news-item{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f0ede8}
+.news-date{font-size:12px;color:#999;font-weight:600}
+.news-title{font-size:14px;color:#4a4640;margin-top:2px}
+.news-counter{text-align:center;font-size:13px;color:#c9a96e;font-weight:600;margin-top:6px}
+.office-item{margin-bottom:10px;font-size:14px}
+.office-item .office-name{font-weight:600;color:#2d2a26}
+.office-item .office-addr{color:#666;font-size:13px}
+.office-item .office-staff{font-size:12px;color:#999;margin-top:2px}
+.phone-note{font-size:12px;color:#999;margin-bottom:8px}
+.show-phones-btn{display:block;width:100%;padding:9px;background:#c9a96e;color:#2d2a26;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}
+.show-phones-btn:hover{background:#b8964e}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+  .sidebar-right{width:240px}
+  .layout{padding-right:240px}
+}
+@media(max-width:900px){
+  .sidebar-right{width:180px}
+  .layout{padding-right:180px}
+  .sidebar-left{position:fixed;left:-320px;top:56px;z-index:200;transition:left .25s;width:300px;box-shadow:2px 0 10px rgba(0,0,0,.2)}
+  .sidebar-left.show{left:0}
+  .burger{display:block}
+  .center{padding:20px 16px}
+  .search-box input{width:140px}
+}
+
+/* collapsible group */
+.collapsible-group > .group-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 6px;font-size:13px;text-transform:uppercase;color:#c9a96e;font-weight:700;letter-spacing:1px;cursor:pointer;user-select:none}
+.collapsible-group > .group-header:hover{color:#fff}
+.collapsible-group > .group-header .group-arrow{transition:transform .2s;font-size:12px}
+.collapsible-group.open > .group-header .group-arrow{transform:rotate(90deg)}
+.collapsible-group > .group-body{display:none}
+.collapsible-group.open > .group-body{display:block}
 </style>
 </head>
 <body>
-<nav class="sidebar" id="sidebar">
-  <div class="sidebar-header">🚚 Санадор Техподдержка</div>
-  <div class="sidebar-nav">
-    <div class="sidebar-section-label">Главная</div>
-    <a href="osnovy-epd.html" class="">🏠 Главная</a>
-    <div class="sidebar-section-label">Инструкции</div>
-    <a href="osnovy-epd.html" class="">🏠 Основы ЭПД</a>
-<a href="cryptopro.html" class="">🔒 КриптоПро</a>
-<a href="perevozchik.html" class="active">🚚 Регистрация: Перевозчик</a>
-<a href="gruzootpravitel.html" class="">📦 Регистрация: Грузоотправитель</a>
-<a href="poluchatel.html" class="">📦 Регистрация: Получатель</a>
 
-    <div class="sidebar-section-label">Справочники</div>
-    <a href="#" class="">🔗 Важные ссылки</a>
+<!-- TOP BAR -->
+<div class="topbar">
+  <button class="burger" onclick="document.querySelector(&#39;.sidebar-left&#39;).classList.toggle(&#39;show&#39;)">☰</button>
+  <span class="logo"> Санадор Техподдержка</span>
+  <span class="subtitle">дай сил мне это закончить</span>
+  <div class="search-box">
+    <input type="text" placeholder="Поиск...">
+    <button onclick="alert(&#39;Поиск...&#39;)">🔍 Найти</button>
   </div>
+</div>
+
+<div class="layout">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar-left" id="sidebar">
+    <div class="nav-group-title">Навигация</div>
+    <a href="https://vilpumv.github.io/support_snd/index.html" class="active"> Главная</a>
+    
+    <div class="collapsible-group" id="etrn-group"><div class="group-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)"><span>📋 Все об ЭТРН</span><span class="group-arrow">▶</span></div><div class="group-body">
+    
+    <a href="https://vilpumv.github.io/support_snd/osnovy-epd.html" class="nav-numbered">
+      <span class="num-badge">1</span>
+      <span>Основы ЭПД </span>
+    </a>
+    
+    <a href="https://vilpumv.github.io/support_snd/cryptopro.html" class="nav-numbered">
+      <span class="num-badge">2</span>
+      <span>Установка КриптоПро</span>
+    </a>
+    
+    <!-- 3 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+        <span class="num-badge">3</span>
+        <span class="title-text">Регистрация в ЭПД ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <a href="https://vilpumv.github.io/support_snd/gruzootpravitel.html">🔸 Отправитель (ООО, ИП)</a>
+        <a href="https://vilpumv.github.io/support_snd/perevozchik.html">🔸 Перевоз (ООО, ИП)</a>
+        <a href="https://vilpumv.github.io/support_snd/poluchatel.html">🔸 Получатель (ИП, ООО)</a>
+      </div>
+    </div>
+    
+    <!-- 4 -->
+    <a href="https://vilpumv.github.io/support_snd/index.html#" class="nav-numbered">
+      <span class="num-badge">4</span>
+      <span>Админка</span>
+    </a>
+    
+    <!-- 5 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+        <span class="num-badge">5</span>
+        <span class="title-text">Дружба ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <a href="https://vilpumv.github.io/support_snd/Druzba_kontrag.html">🔸 Добавление контрагента</a>
+        <a href="https://vilpumv.github.io/support_snd/Druzba_admin.html">🔸 Дружба через админку</a>
+        <a href="https://vilpumv.github.io/support_snd/Druzba_sait.html">🔸 Дружба через сайт</a>
+      </div>
+    </div>
+    
+    <!-- 6 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+        <span class="num-badge">6</span>
+        <span class="title-text">ЭЗЗ ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <a href="https://vilpumv.github.io/support_snd/AZZ_otprav.html">🔸 Грузоотправитель (создание)</a>
+        <a href="https://vilpumv.github.io/support_snd/AZZ_perevoz.html">🔸 Перевозчик (подписание)</a>
+      </div>
+    </div>
+    
+    <!-- 7 — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+        <span class="num-badge">7</span>
+        <span class="title-text">ЭТРН ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <a href="https://vilpumv.github.io/support_snd/ATRN_otprav.html">🔸 Отправитель</a>
+        <a href="https://vilpumv.github.io/support_snd/ATRN_perevoz.html">🔸 Перевозчик</a>
+        <a href="https://vilpumv.github.io/support_snd/ATRN_polutchatel.html">🔸 Получатель</a>
+      </div>
+    </div>
+    
+    </div><!-- group-body -->
+  </div><!-- collapsible-group -->
+
+        <!-- Санадор Z — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+        <span style="font-size:18px">📱</span>
+        <span class="title-text">Санадор Z ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <!-- ТМС(1С) — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+        <span style="font-size:18px">🚚</span>
+        <span class="title-text">ТМС(1С) ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <!-- Санадор Агро — expandable -->
+    <div class="expandable">
+      <div class="expand-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+        <span style="font-size:18px">🌾</span>
+        <span class="title-text">Санадор Агро (в будущем...) ›</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="expand-body">
+        <div class="placeholder-note">Пункты будут добавлены позже</div>
+      </div>
+    </div>
+    
+    <div class="nav-group-title" style="margin-top:14px">Справочники</div>
+    <a href="https://vilpumv.github.io/support_snd/vazhnye-ssylki.html">🔗 Важные ссылки</a>
+    <a href="https://vilpumv.github.io/support_snd/baza-voprosov.html">❓ База вопросов</a>
+  </div>
+
 </nav>
 <button class="sidebar-toggle" id="toggle" onclick="toggleSidebar()">&#9776;</button>
 <main class="main">
